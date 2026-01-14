@@ -586,59 +586,6 @@ void display_works_times_four_numbers(uint8_t hours , uint8_t minutes,uint8_t se
 
       // TIM1723_Write_Cmd(LUM_VALUE);//(0x9B);
 }
-/*****************************************************************************
- * 
- * Function Name: void display_timer_times_handler(void)
- * Function:
- * Input Ref:
- * Return Ref:
- * 
-*****************************************************************************/
-void display_timer_times_handler(void)
-{
-    if(ptc_state()== 1){
-          TM1723_Write_Display_Data(0xC9,(DRY_Symbol+lcdNumber5_High[0] + lcdNumber5_Low[0]  ) & 0xffff); 
-     }
-     else{
-          TM1723_Write_Display_Data(0xC9,(DRY_NO_Symbol+lcdNumber5_High[0] + lcdNumber5_Low[0]  ) & 0xffff); 
-
-     }
-
-     if(plasma_state() ==1){
-
-            TM1723_Write_Display_Data(0xCA,(PLASMA_Symbol+lcdNumber6_High[0] + lcdNumber6_Low[0] ) & 0xffff); 
-
-      }
-      else{
-          TM1723_Write_Display_Data(0xCA,(PLASMA_NO_Symbol+lcdNumber6_High[0] + lcdNumber6_Low[00] ) & 0xffff); 
-
-      }
-
-      //display time of colon symbol
-      if(glcd_t.gtime_colon_symbol_flag == 0){
-              TM1723_Write_Display_Data(0xCB,(COLON_SYMBOL+lcdNumber7_High[0] + lcdNumber7_Low[0]) & 0xffff); //numbers : '1' addr: 
-
-       }
-       else{
-
-         TM1723_Write_Display_Data(0xCB,(NO_COLON_SYMBOL + lcdNumber7_High[0] + lcdNumber7_Low[0] ) & 0xffff);
-       
-       }
-      
-
-       
-       if(ultrasonic_state() == 1){
-        
-             TM1723_Write_Display_Data(0xCC,(0x01+lcdNumber8_High[0] + lcdNumber8_Low[0] ) & 0xffff); //numbers
-
-       }
-       else{
-
-          TM1723_Write_Display_Data(0xCC,(0x00+lcdNumber8_High[0] + lcdNumber8_Low[0] ) & 0xffff); //numbers
-       }
-
-       TIM1723_Write_Cmd(LUM_VALUE);//(0x9B);
-}
 
 /*****************************************************************************
  * 

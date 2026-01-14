@@ -399,7 +399,7 @@ void Display_WorksTimingr_Handler(uint8_t sel_item)
 //                glcd_t.number8_high =  glcd_t.number8_low ;//gpro_t.set_timer_timing_minutes % 10;
 
                 //LCD_Disp_Timer_Timing();
-                display_works_times_four_numbers(glcd_t.number5_low = gpro_t.set_timer_timing_hours,gpro_t.set_timer_timing_minutes,0);
+                display_works_times_four_numbers(gpro_t.set_timer_timing_hours,gpro_t.set_timer_timing_minutes,0);
             }
             else if(gpro_t.gTimer_disp_short_time > 19){
                 gpro_t.gTimer_disp_short_time=0;
