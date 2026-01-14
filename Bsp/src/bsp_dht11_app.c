@@ -25,12 +25,13 @@ void temperatureValue_compareHandler(void)
                 gctl_t.ptc_flag = 1;
 			
 
-                Ptc_On();
+                
                 Disp_Dry_Icon();
 
                 gpro_t.gTimer_run_dht11=2;  //at once display sensor of temperature value 
                 if(ptc_default_on != gctl_t.ptc_flag ){
 					ptc_default_on = gctl_t.ptc_flag;
+					Ptc_On();
 	              	sendDisplayCommand(0x22,0x01); // 关闭干燥功能
 					osDelay(10);
 
@@ -47,6 +48,7 @@ void temperatureValue_compareHandler(void)
             Disp_Dry_Icon();
 			if(ptc_default_off != gctl_t.ptc_flag ){
 			     ptc_default_off = gctl_t.ptc_flag;
+				  Ptc_Off();
 				  sendDisplayCommand(0x22,0); // 关闭干燥功能
 	       		 osDelay(10);
 			}
@@ -69,6 +71,7 @@ void temperatureValue_compareHandler(void)
 				Disp_Dry_Icon();
 				if(ptc_default_off != gctl_t.ptc_flag ){
 			       ptc_default_off = gctl_t.ptc_flag;
+				    Ptc_Off();
 				   sendDisplayCommand(0x22,0); // 关闭干燥功能
 	       		     osDelay(10);
 			     }
@@ -81,10 +84,11 @@ void temperatureValue_compareHandler(void)
 		    
 	               gctl_t.ptc_flag = 1;
 				  
-				   Ptc_On();
+				  
 				   Disp_Dry_Icon();
 				   if(ptc_default_on != gctl_t.ptc_flag ){
 					ptc_default_on = gctl_t.ptc_flag;
+					 Ptc_On();
 	              	sendDisplayCommand(0x22,0x01); // 关闭干燥功能
 					osDelay(10);
 
@@ -96,10 +100,11 @@ void temperatureValue_compareHandler(void)
 		    
 	               gctl_t.ptc_flag = 1;
 				  
-				   Ptc_On();
+				  
 				   Disp_Dry_Icon();
 				 if(ptc_default_on != gctl_t.ptc_flag ){
 					ptc_default_on = gctl_t.ptc_flag;
+					Ptc_On();
 	              	sendDisplayCommand(0x22,0x01); // 关闭干燥功能
 					osDelay(10);
 

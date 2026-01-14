@@ -44,7 +44,7 @@ void mainboard_active_handler(void)
 static void Process_Dynamical_Action(void)
 {
 
-
+    static uint8_t ptc_on_flag =0xff,ptc_off_flag =0xff;
     if(gctl_t.ai_flag == 1){
 
             disp_ai_symbol();
@@ -55,19 +55,24 @@ static void Process_Dynamical_Action(void)
 
      }
 
-   if(ptc_state() ==1 && gctl_t.manual_turn_off_ptc_flag == 0 &&  gctl_t.ptc_warning ==0 && gctl_t.fan_warning ==0){
+   if(gctl_t.ptc_flag ==1 && gctl_t.manual_turn_off_ptc_flag == 0 &&  gctl_t.ptc_warning ==0 && gctl_t.fan_warning ==0){
 
+       if(ptc_on_flag != gctl_t.ptc_flag ){
+	   	  ptc_on_flag = gctl_t.ptc_flag;
+          Ptc_On();
 
-       Ptc_On();
+       	}
        Disp_Dry_Icon();
 
 
      }
     else{
 
-           
-     Ptc_Off();
-     Disp_Dry_Icon();
+      if(ptc_off_flag != gctl_t.ptc_flag ){
+	   	  ptc_off_flag = gctl_t.ptc_flag;   
+          Ptc_Off();
+       }
+       Disp_Dry_Icon();
     }
             
 

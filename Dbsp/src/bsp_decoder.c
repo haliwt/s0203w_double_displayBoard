@@ -331,11 +331,7 @@ void receive_data_fromm_display(uint8_t *pdata)
           gpro_t.set_temperature_value_success=1;
 	
 
-	
-
-			gctl_t.ai_flag = 0; // DON'T DISP AI ICON
-
-            gpro_t.gTimer_set_temp_value=20;
+	       gpro_t.gTimer_set_temp_value=20;
 	       
 		   Disp_SetTemp_Value(gctl_t.gSet_temperature_value);
             
