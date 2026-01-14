@@ -117,26 +117,7 @@ void temperatureValue_compareHandler(void)
 
 	}
 
-	  if(gpro_t.tencent_link_success==1){
-
-	        if( gctl_t.ptc_flag ==0){
-
-			   if(ptc_default_off != gctl_t.ptc_flag ){
-			       ptc_default_off = gctl_t.ptc_flag;
-	            MqttData_Publish_SetPtc(0x0);
-		  	    osDelay(200);//HAL_Delay(350);
-			   	}
-	        }
-            else{
-			   if(ptc_default_on != gctl_t.ptc_flag ){
-					ptc_default_on = gctl_t.ptc_flag;
-			       MqttData_Publish_SetPtc(0x01);
-			       osDelay(200);//HAL_Delay(350);
-			   	}
-
-
-			}
-        }
+	 
 
     }
 }
