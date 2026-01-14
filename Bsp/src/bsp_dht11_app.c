@@ -11,7 +11,7 @@
 void temperatureValue_compareHandler(void)
 {
 
-    static uint8_t recoder_close_ptc_times;
+    static uint8_t recoder_close_ptc_times,ptc_default_on= 0xff, ptc_default_off = 0xff;
 
     if(gpro_t.gTimer_set_temp_value > 4){
 		gpro_t.gTimer_set_temp_value=0;
@@ -29,9 +29,12 @@ void temperatureValue_compareHandler(void)
                 Disp_Dry_Icon();
 
                 gpro_t.gTimer_run_dht11=2;  //at once display sensor of temperature value 
+                if(ptc_default_on != gctl_t.ptc_flag ){
+					ptc_default_on = gctl_t.ptc_flag;
+	              	sendDisplayCommand(0x22,0x01); // 关闭干燥功能
+					osDelay(10);
 
-              	sendDisplayCommand(0x22,0x01); // 关闭干燥功能
-				osDelay(10);
+                }
                   
             }
 
@@ -42,8 +45,11 @@ void temperatureValue_compareHandler(void)
             gctl_t.ptc_flag = 0;
             Ptc_Off();
             Disp_Dry_Icon();
-			sendDisplayCommand(0x22,0); // 关闭干燥功能
-	        osDelay(10);
+			if(ptc_default_off != gctl_t.ptc_flag ){
+			     ptc_default_off = gctl_t.ptc_flag;
+				  sendDisplayCommand(0x22,0); // 关闭干燥功能
+	       		 osDelay(10);
+			}
             
             gpro_t.gTimer_run_dht11=2;  //at once display sensor of temperature value 
 
@@ -61,6 +67,11 @@ void temperatureValue_compareHandler(void)
 		        gctl_t.ptc_flag = 0;
 				Ptc_Off();
 				Disp_Dry_Icon();
+				if(ptc_default_off != gctl_t.ptc_flag ){
+			       ptc_default_off = gctl_t.ptc_flag;
+				   sendDisplayCommand(0x22,0); // 关闭干燥功能
+	       		     osDelay(10);
+			     }
 				sendDisplayCommand(0x22,0); // 关闭干燥功能
 	            osDelay(10);
 
@@ -72,6 +83,12 @@ void temperatureValue_compareHandler(void)
 				  
 				   Ptc_On();
 				   Disp_Dry_Icon();
+				   if(ptc_default_on != gctl_t.ptc_flag ){
+					ptc_default_on = gctl_t.ptc_flag;
+	              	sendDisplayCommand(0x22,0x01); // 关闭干燥功能
+					osDelay(10);
+
+                   }
 
 		}
 		else if(gctl_t.dht11_temp_value < 38 && recoder_close_ptc_times > 0 && gctl_t.manual_turn_off_ptc_flag ==0){
@@ -81,6 +98,12 @@ void temperatureValue_compareHandler(void)
 				  
 				   Ptc_On();
 				   Disp_Dry_Icon();
+				 if(ptc_default_on != gctl_t.ptc_flag ){
+					ptc_default_on = gctl_t.ptc_flag;
+	              	sendDisplayCommand(0x22,0x01); // 关闭干燥功能
+					osDelay(10);
+
+                 }
 
 		}
 
@@ -88,6 +111,27 @@ void temperatureValue_compareHandler(void)
 	  
 
 	}
+
+	  if(gpro_t.tencent_link_success==1){
+
+	        if( gctl_t.ptc_flag ==0){
+
+			   if(ptc_default_off != gctl_t.ptc_flag ){
+			       ptc_default_off = gctl_t.ptc_flag;
+	            MqttData_Publish_SetPtc(0x0);
+		  	    osDelay(200);//HAL_Delay(350);
+			   	}
+	        }
+            else{
+			   if(ptc_default_on != gctl_t.ptc_flag ){
+					ptc_default_on = gctl_t.ptc_flag;
+			       MqttData_Publish_SetPtc(0x01);
+			       osDelay(200);//HAL_Delay(350);
+			   	}
+
+
+			}
+        }
 
     }
 }

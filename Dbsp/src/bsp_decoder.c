@@ -117,39 +117,26 @@ void receive_data_fromm_display(uint8_t *pdata)
      break;
 
      case 0x22: //notification :ccompare set temp value ->PTC打开关闭指令,没有蜂鸣器声音�??
-     // wake_up_backlight_on();
-     // gpro_t.gTimer_shut_off_backlight =0;
-
+   
       if(pdata[3] == 0x01){
 
          
-         
         if(gctl_t.interval_stop_run_flag  ==0 && gctl_t.manual_turn_off_ptc_flag ==0){
-		  	     gctl_t.ptc_flag = 1;
+		  	    gctl_t.ptc_flag = 1;
          
-                  Disp_Dry_Icon();
+                
 
-                 Ptc_On();
+              
           }
-         if(gpro_t.tencent_link_success==1 && gctl_t.manual_turn_off_ptc_flag==0){
-              MqttData_Publish_SetPtc(0x01);
-	  	      osDelay(50);//HAL_Delay(350);
-           }
+        
           
-         
-         
        }
        else if(pdata[3] == 0x0){
 
        
+            gctl_t.ptc_flag = 0;
          
-          gctl_t.ptc_flag = 0;
-          Ptc_Off();
-          Disp_Dry_Icon();
-          if(gpro_t.tencent_link_success==1){
-              MqttData_Publish_SetPtc(0x0);
-	  	      osDelay(50);//HAL_Delay(350);
-           }
+        
 
        }
 
