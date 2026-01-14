@@ -18,7 +18,7 @@ static void Process_Dynamical_Action(void);
 **********************************************************************************************************/
 void mainboard_active_handler(void)
 {
-   if(gpro_t.gTimer_run_main_fun > 1 && gpro_t.receive_disp_mode != disp_timer_timing){
+   if(gpro_t.gTimer_run_main_fun > 4 && gpro_t.receive_disp_mode != disp_timer_timing){
         gpro_t.gTimer_run_main_fun =0;
         if(gctl_t.interval_stop_run_flag  ==0){
             Process_Dynamical_Action();

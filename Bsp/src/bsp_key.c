@@ -287,16 +287,11 @@ void key_mode_short_handler(void)
 		 if(gctl_t.ai_flag ==1){
                   gpro_t.receive_disp_mode = disp_timer_timing;//gkey_t.key_mode=disp_timer_timing;
 				  gpro_t.gTimer_disp_short_time =0;
-			     // dispLCD_worksTime_fun();
-			     if(gkey_t.set_timer_timing_success ==1){
-                       dispLCD_timerTime_fun();
+		         gctl_t.ai_flag = 0;
+				 donot_disp_ai_symbol();
 
-				  }
-				  else{
-				     gctl_t.ai_flag = 0; // DISPLAY AI ICON
-					  donot_disp_ai_symbol();
-                      display_timer_times_handler(); 
-				  }
+				 dispLCD_timerTime_fun();
+
 				  gkey_t.key_mode = disp_timer_timing;
 
 			  
@@ -307,13 +302,13 @@ void key_mode_short_handler(void)
 				  gpro_t.gTimer_disp_short_time =0;
 
 				   dispLCD_worksTime_fun();
-				  gkey_t.key_mode = disp_works_timing;
+				   gkey_t.key_mode = disp_works_timing;
 				  }
 
 			  
-               Buzzer_KeySound();
-			    SendData_Set_Command(0x07,0x02); //timer timing.
-                 osDelay(5);//HAL_Delay(10);
+                  Buzzer_KeySound();
+			    //SendData_Set_Command(0x07,0x02); //timer timing.
+                /// osDelay(5);//HAL_Delay(10);
 
 		#if 0
      

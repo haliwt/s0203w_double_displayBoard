@@ -226,7 +226,7 @@ static void vTaskMsgPro(void *pvParameters)//static void vTaskStart(void *pvPara
 		 
         
       // receive_message_displaybord_handler();
-       vTaskDelay(10);
+       vTaskDelay(40);
       }
 
     }
