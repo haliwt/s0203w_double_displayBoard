@@ -258,7 +258,7 @@ void power_on_run_handler(void)
 		    //MqttData_Publish_Update_Data();
 		    /// osDelay(20);//HAL_Delay(20);
 		    Subscriber_Data_FromCloud_Handler();
-            osDelay(100);
+            osDelay(200);
 		     
 
 		}
@@ -272,10 +272,10 @@ void power_on_run_handler(void)
        else if(gpro_t.tencent_link_success==1 && wifi_t.link_net_tencent_data_flag ==4 ){
                  wifi_t.link_net_tencent_data_flag++ ;
                    Publish_Data_Warning(fan_warning,no_warning);
-                      osDelay(100);
+                      osDelay(300);
                 
                       Publish_Data_Warning(ptc_temp_warning,no_warning);
-                      osDelay(100);
+                      osDelay(200);
                 
        }
 		gctl_t.step_process=4;

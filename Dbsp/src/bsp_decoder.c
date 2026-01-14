@@ -36,7 +36,7 @@ void receive_message_displaybord_handler(void)
 void receive_data_fromm_display(uint8_t *pdata)
 {
 
-   if(pdata[1] == 0x02){
+   //if(pdata[1] == 0x02||){
 
     switch(pdata[2]){
 
@@ -49,33 +49,33 @@ void receive_data_fromm_display(uint8_t *pdata)
         //wake_up_backlight_on();
         gpro_t.gTimer_shut_off_backlight =0;
 
-        if(pdata[3] == 0x00 ){ //open
-            if(pdata[4]==0x01){
+        if(pdata[3] == 0x01){ //open
+      
              Buzzer_KeySound();// buzzer_sound();
 			gctl_t.step_process=0;
             gpro_t.disp_power_on_flag = 1;
 			gkey_t.key_power=power_on;
            SendWifiData_Answer_Cmd(0x01,0x01); //WT.EDIT 2025.01.07 
-           osDelay(5);
+           osDelay(20);
 
 
         }
-        else if(pdata[4] == 0x0){
+        else if(pdata[3] == 0x0){
            Buzzer_KeySound();//buzzer_sound();
 		   gpro_t.disp_power_on_flag = 2;
 		   gkey_t.key_power=power_off;
          
 
          SendWifiData_Answer_Cmd(0x01,0x0); //WT.EDIT 2025.01.07
-		 osDelay(5);
+		 osDelay(20);
         }
-    	}
+    	
 
      break;
 
      case 0x02: //PTC打开关闭指令
 
-     if(pdata[4] == 0x01){
+     if(pdata[3] == 0x01){
 
         buzzer_sound();
         wake_up_backlight_on();
@@ -92,7 +92,7 @@ void receive_data_fromm_display(uint8_t *pdata)
           
           if(gpro_t.tencent_link_success==1){
               MqttData_Publish_SetPtc(0x01);
-	  	      osDelay(50);//HAL_Delay(350);
+	  	      osDelay(200);//HAL_Delay(350);
            }
        }
        else if(pdata[3] == 0x0){
@@ -120,7 +120,7 @@ void receive_data_fromm_display(uint8_t *pdata)
      // wake_up_backlight_on();
      // gpro_t.gTimer_shut_off_backlight =0;
 
-      if(pdata[4] == 0x01){
+      if(pdata[3] == 0x01){
 
          
          
@@ -139,7 +139,7 @@ void receive_data_fromm_display(uint8_t *pdata)
          
          
        }
-       else if(pdata[4] == 0x0){
+       else if(pdata[3] == 0x0){
 
        
          
@@ -163,7 +163,7 @@ void receive_data_fromm_display(uint8_t *pdata)
         gpro_t.gTimer_shut_off_backlight =0;
          
 
-        if(pdata[4] == 0x01){
+        if(pdata[3] == 0x01){
             
            gctl_t.plasma_flag  = 1;
           
@@ -183,7 +183,7 @@ void receive_data_fromm_display(uint8_t *pdata)
 
            
         }
-        else if(pdata[4] == 0x0){
+        else if(pdata[3] == 0x0){
        
            gctl_t.plasma_flag  = 0;
            Plasma_Off();
@@ -191,7 +191,7 @@ void receive_data_fromm_display(uint8_t *pdata)
 
           if(gpro_t.tencent_link_success==1){
               MqttData_Publish_SetPlasma(0x0);
-	  	      osDelay(50);//HAL_Delay(350);
+	  	      osDelay(200);//HAL_Delay(350);
           }
          
 
@@ -208,7 +208,7 @@ void receive_data_fromm_display(uint8_t *pdata)
         //wake_up_backlight_on();
         //gpro_t.gTimer_shut_off_backlight =0;
             
-       if(pdata[4] == 0x01){  //open 
+       if(pdata[3] == 0x01){  //open 
            Buzzer_KeySound();
          //if(gctl_t.interval_stop_run_flag ==0){
           
@@ -231,7 +231,7 @@ void receive_data_fromm_display(uint8_t *pdata)
         //}
 
         }
-        else if(pdata[4] == 0x0){ //close 
+        else if(pdata[3] == 0x0){ //close 
 			 Buzzer_KeySound();
 
              gctl_t.ultrasonic_flag =0;
@@ -255,7 +255,7 @@ void receive_data_fromm_display(uint8_t *pdata)
          gpro_t.gTimer_shut_off_backlight =0;
          
 
-       if(pdata[4] == 0x01){  // link wifi 
+       if(pdata[3] == 0x01){  // link wifi 
         
 
         second_disp_set_link_wifi_fun();
@@ -264,7 +264,7 @@ void receive_data_fromm_display(uint8_t *pdata)
             
 
         }
-        else if(pdata[4] == 0x0){ //don't link wifi 
+        else if(pdata[3] == 0x0){ //don't link wifi 
 
         }
 
@@ -273,8 +273,8 @@ void receive_data_fromm_display(uint8_t *pdata)
 
      case 0x06: //buzzer sound done
         // wake_up_backlight_on();
-        if(pdata[3]==0){
-	        if(pdata[4] == 0x01){  //
+        
+	        if(pdata[3] == 0x01){  //
 	           
 	             Buzzer_KeySound()  ;
 	             gkey_t.key_mode_shot_flag = 1;
@@ -289,7 +289,7 @@ void receive_data_fromm_display(uint8_t *pdata)
 				disp_ai_iocn();
 
 	        }
-	        else if(pdata[4] == 0x02){
+	        else if(pdata[3] == 0x02 || pdata[3]==0){
 
 			 gkey_t.key_mode  = disp_timer_timing;
 
@@ -308,15 +308,15 @@ void receive_data_fromm_display(uint8_t *pdata)
 			disp_ai_iocn();
 	        }
 
-        }
+       
 
 
      break;
 
 	 case 0x07: //switch display by has been set up timer value or works timing value
 
-	      if(pdata[3]==0){
-	        if(pdata[4] == 0x02 || pdata[4] ==0x01){  //display AI =2,disp_timer_item.
+	      
+	        if(pdata[3] == 0x02 || pdata[3] ==0x01 || pdata[3] ==0x0){  //display AI =2,disp_timer_item.
 	           Buzzer_KeySound();
 
 			  if(gctl_t.ai_flag ==1){
@@ -336,7 +336,7 @@ void receive_data_fromm_display(uint8_t *pdata)
 
 			  
 		      }
-			  else if(gctl_t.ai_flag==0){ //display don't AI MODE ,disp_works_item
+	          else if(gctl_t.ai_flag==0){ //display don't AI MODE ,disp_works_item
 			  	 
 				  gpro_t.receive_disp_mode= disp_works_timing ;//gkey_t.key_mode=disp_works_timing;
 				  gpro_t.gTimer_disp_short_time =0;
@@ -347,37 +347,16 @@ void receive_data_fromm_display(uint8_t *pdata)
 
 			  }
            
-	      } 
+	      
 	  
 
 	 break;
 
-     case 0x0A: //the second display board link state. dc power on the first link state
-
-        wake_up_backlight_on();
-        gpro_t.gTimer_shut_off_backlight =0;
-        if(pdata[4] == 0x01){  //
-          if(gkey_t.key_power==power_on){
-            g_tDisp.disp_second_link_state_flag =1;
-
-          }
-          else{
-              g_tDisp.disp_second_link_state_flag =0;
-
-
-          }
-           
-
-        }
-       
-
-     break;
 
 
       case 0x1A: //read DHT11 of sensor temperature and humidity value 读取传感的温度数�?
-          //wake_up_backlight_on();
-          //gpro_t.gTimer_shut_off_backlight =0;
-        if(pdata[4] == 0x0F){ //
+         
+        if(pdata[4] == 0x01){ //
           if(gkey_t.set_temp_value_be_pressed !=1){
           gpro_t.set_temperature_value_success=1;
           gkey_t.set_temp_value_be_pressed = 1;     //send data to tencent flag.
@@ -447,7 +426,7 @@ void receive_data_fromm_display(uint8_t *pdata)
       wake_up_backlight_on();
       gpro_t.gTimer_shut_off_backlight =0;
 
-      if(pdata[4] == 0x01){ //AI mode ,don't buzzer sound .
+      if(pdata[3] == 0x01){ //AI mode ,don't buzzer sound .
         
         g_tDisp.ai_mode_flag =1;
         gkey_t.key_mode = disp_works_timing;
@@ -467,9 +446,8 @@ void receive_data_fromm_display(uint8_t *pdata)
      break;
 
 
-     case 0x2B: //display #1 or display #2  timer timing .
-         //wake_up_backlight_on();
-         ///gpro_t.gTimer_shut_off_backlight =0;
+     case 0x2B: //  timer timing .
+       
          if(pdata[3]==0x0F){
 	         if(pdata[4]==0x01){
                 gpro_t.set_timer_timing_hours = pdata[5];
@@ -490,7 +468,7 @@ void receive_data_fromm_display(uint8_t *pdata)
      
      }
 
-   }
+   
 
 }
 

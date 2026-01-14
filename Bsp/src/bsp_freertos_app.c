@@ -179,7 +179,7 @@ static void vTaskMsgPro(void *pvParameters)//static void vTaskStart(void *pvPara
          else if(wifi_t.smartphone_app_power_on_flag == 1){
            wifi_t.smartphone_app_power_on_flag++;
            SendData_Set_Command(0X21,0X01);
-           osDelay(5);
+           osDelay(20);
           }
          
          
