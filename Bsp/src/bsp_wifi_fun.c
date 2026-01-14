@@ -180,13 +180,13 @@ void link_wifi_net_state_handler(void)
                 
 			 
 				 MqttData_Publish_SetOpen(0x01);
-		         HAL_Delay(50);
-		        // osDelay(100);
+		         //HAL_Delay(50);
+		         vTaskDelay(200);
 		         Publish_Data_ToTencent_Initial_Data();
-				 HAL_Delay(50);
-                  //osDelay(100);
+				 //HAL_Delay(50);
+                 vTaskDelay(300);
                  Subscriber_Data_FromCloud_Handler();
-				 osDelay(200);//HAL_Delay(50);
+				 vTaskDelay(300);//osDelay(200);//HAL_Delay(50);
 
 			
 	             //osDelay(100);

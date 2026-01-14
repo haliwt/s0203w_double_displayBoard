@@ -447,7 +447,7 @@ void wifi_auto_detected_link_state(void)
           }
           else{
              MqttData_Publish_Update_Data();
-		     osDelay(100);//HAL_Delay(100);
+		     osDelay(200);//HAL_Delay(100);
 
 
           }
@@ -466,7 +466,7 @@ void wifi_auto_detected_link_state(void)
 
          auto_link_tencent_step  = 0xff;
          SendData_Set_Command(0x1F,0x0);//has been link net NG.
-
+         vTaskDelay(10);
      }
 
     if(gpro_t.tencent_link_success==1 &&  power_on_dc_power==1){
@@ -477,7 +477,7 @@ void wifi_auto_detected_link_state(void)
         wifi_t.link_net_tencent_data_flag=1; //power on link tencet initial data flag ;
 
         SendData_Set_Command(0x1F,0x01);//has been link net OK
-        osDelay(5);
+        osDelay(10);
         Subscriber_Data_FromCloud_Handler();
         osDelay(200);//HAL_Delay(200); //osDelay(200)
 
@@ -508,7 +508,7 @@ static void auto_link_tencent_cloud_fun(void)
    
 	  // at_send_data("AT+RESTORE\r\n", strlen("AT+RESTORE\r\n"));
 	   at_send_data("AT+RST\r\n", strlen("AT+RST\r\n"));
-       HAL_Delay(1000);
+       vTaskDelay(1000);//HAL_Delay(1000);
 
 	  auto_link_tencent_step=1;
       wifi_t.gTimer_power_first_link_tencent=0;
@@ -541,8 +541,8 @@ static void auto_link_tencent_cloud_fun(void)
 
    case 3:
   
-        HAL_UART_Transmit(&huart2, "AT+TCMQTTCONN=1,5000,240,0,1\r\n", strlen("AT+TCMQTTCONN=1,5000,240,0,1\r\n"), 0xffff);//开始连接
-       HAL_Delay(1000);
+       at_send_data("AT+TCMQTTCONN=1,5000,240,0,1\r\n", strlen("AT+TCMQTTCONN=1,5000,240,0,1\r\n"));//开始连接
+       vTaskDelay(1000);//HAL_Delay(1000);
        wifi_t.gTimer_power_first_link_tencent=0;
         gpro_t.gTimer_get_data_from_tencent_data=0;
 	

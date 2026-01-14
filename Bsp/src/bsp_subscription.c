@@ -275,20 +275,6 @@ void Subscribe_Rx_Interrupt_Handler(void)
     
   
 }
-	
-   
-
-  
-/*******************************************************************************
-    **
-    *Function Name:void Tencent_Cloud_Rx_Handler(void)
-    *Function: 
-    *Input Ref: +TCMQTTCONN:OK
-    *Return Ref:NO
-    *
-********************************************************************************/
-
-
 /*******************************************************************************
     **
     *Function Name:void Tencent_Cloud_Rx_Handler(void)
@@ -478,7 +464,7 @@ void JsonParse_Tencent_Cmd_Handler(void)
        gpro_t.wifi_power_on_normal_flag=2;
        gkey_t.key_power = power_off; //WT.EDIT 2024.02.20
         MqttData_Publish_SetOpen(0);  
-        HAL_Delay(350);//350
+        vTaskDelay(300);//HAL_Delay(350);//350
 
         gpro_t.tencent_link_success=1;
       
@@ -487,6 +473,7 @@ void JsonParse_Tencent_Cmd_Handler(void)
         buzzer_sound();
          gpro_t.power_off_flag =1;
          SendData_Set_Command(0x01, 0x00); //power off command
+         vTaskDelay(10);
         wifi_t.gTimer_auto_detected_net_state_times=0; //don't need check wifi if has or not
         wifi_t.response_wifi_signal_label = 0xff;
         
@@ -499,12 +486,12 @@ void JsonParse_Tencent_Cmd_Handler(void)
 	   //  gkey_t.power_key_long_counter=1;
 		gpro_t.tencent_link_success=1;
 		MqttData_Publish_SetOpen(1);  
-		HAL_Delay(200);//300
+		vTaskDelay(300);//HAL_Delay(200);//300
         buzzer_sound();
-        // gkey_t.key_power = power_on;
+     
         SendData_Set_Command(0x01, 0x01); //power on comman
-        osDelay(5);
-        //smartphone_turn_on_handler();
+        osDelay(10);
+      
       
 
 		gctl_t.ptc_warning =0;
@@ -527,10 +514,10 @@ void JsonParse_Tencent_Cmd_Handler(void)
              gctl_t.ptc_flag=1;
              Disp_Dry_Icon();
              MqttData_Publish_SetPtc(0x01);
-             osDelay(100);//HAL_Delay(350);//350ms
+             osDelay(300);//HAL_Delay(350);//350ms
             
              SendData_Set_Command(0x02, 0x01); //ptc turn on command
-             osDelay(5);
+             osDelay(10);
 			 Buzzer_KeySound();//buzzer_sound()	;
         }
 		
@@ -548,7 +535,7 @@ void JsonParse_Tencent_Cmd_Handler(void)
 		 gpro_t.gTimer_shut_off_backlight =0;
          //wake_up_backlight_on();
          MqttData_Publish_SetPtc(0);
-		 osDelay(100);//HAL_Delay(350);
+		 osDelay(300);//HAL_Delay(350);
 
 		
 		 Ptc_Off();
@@ -558,7 +545,7 @@ void JsonParse_Tencent_Cmd_Handler(void)
          gctl_t.manual_turn_off_ptc_flag= 1;
          
         SendData_Set_Command(0x02, 0x0); //ptc turn off command
-	    osDelay(5);
+	    osDelay(10);
 	    Buzzer_KeySound();//buzzer_sound()	;
 	    
 		
@@ -579,13 +566,13 @@ void JsonParse_Tencent_Cmd_Handler(void)
 	    
 			
             MqttData_Publish_SetPlasma(0);
-			osDelay(100);//HAL_Delay(200);
+			osDelay(300);//HAL_Delay(200);
            gctl_t.plasma_flag=0;
            Disp_Kill_Icon();
 
            
             SendData_Set_Command(0x03, 0x00); //plasma turn off command
-            osDelay(5);
+            osDelay(10);
             Buzzer_KeySound();
            
 		  
@@ -603,12 +590,12 @@ void JsonParse_Tencent_Cmd_Handler(void)
 			Plasma_On();
 	  
             MqttData_Publish_SetPlasma(1);
-		    osDelay(50);//HAL_Delay(200);
+		    osDelay(300);//HAL_Delay(200);
            gctl_t.plasma_flag=1;
             Disp_Kill_Icon();
 
             SendData_Set_Command(0x03, 0x01); //plasma turn on command
-            osDelay(5);
+            osDelay(10);
             Buzzer_KeySound();
 		   
 			}
@@ -624,12 +611,12 @@ void JsonParse_Tencent_Cmd_Handler(void)
 			Ultrasonic_Pwm_Stop();
 	    
             MqttData_Publish_SetUltrasonic(0);
-			osDelay(50);//HAL_Delay(200);
+			osDelay(300);//HAL_Delay(200);
             gctl_t.ultrasonic_flag=0;
              Disp_Ultrsonic_Icon();
 
             SendData_Set_Command(0x04, 0x0); //ultrasonic turn off command
-            osDelay(5);
+            osDelay(10);
              Buzzer_KeySound();
             
 		}
@@ -646,12 +633,13 @@ void JsonParse_Tencent_Cmd_Handler(void)
             wake_up_backlight_on();
 			Ultrasonic_Pwm_Output();
             MqttData_Publish_SetUltrasonic(1);
-			HAL_Delay(200);
+			vTaskDelay(300);//HAL_Delay(200);
           
             gctl_t.ultrasonic_flag=1;
             Disp_Ultrsonic_Icon();
 
            SendData_Set_Command(0x04, 0x01); //ultrasonic turn on  command
+           vTaskDelay(10);
              buzzer_sound();
             //send data to the second display board
            
@@ -675,10 +663,10 @@ void JsonParse_Tencent_Cmd_Handler(void)
             LCD_Disp_Timer_Timing_Init();
 
            MqttData_Publish_SetState(2); //timer model  = 2, works model = 1
-			HAL_Delay(200);
+			vTaskDelay(300);//HAL_Delay(200);
             //do someting disp timer timing value 
             SendData_Set_Command(0x27, 0x02); //AI turn off command
-           
+            vTaskDelay(10);
             
 		
 			
@@ -705,10 +693,10 @@ void JsonParse_Tencent_Cmd_Handler(void)
 
            
             MqttData_Publish_SetState(1); //beijing timing = 1
-			HAL_Delay(200);
+			vTaskDelay(300);//HAL_Delay(200);
 
             SendData_Set_Command(0x27, 0x01); //AI turn on command
-
+            vTaskDelay(10);
            
 			
           
@@ -741,7 +729,7 @@ void JsonParse_Tencent_Cmd_Handler(void)
             
             
             MqttData_Publis_SetTemp(gctl_t.gSet_temperature_value);
-			osDelay(20);//HAL_Delay(200);//350
+			vTaskDelay(300);//osDelay(20);//HAL_Delay(200);//350
 		
 
            
@@ -759,7 +747,9 @@ void JsonParse_Tencent_Cmd_Handler(void)
           //  gkey_t.set_temp_value_be_pressed = 1 ;
 
            sendData_setTemp_value(gctl_t.gSet_temperature_value); //smart phone set temperature value .
-           gpro_t.gTimer_run_dht11=0; 
+           vTaskDelay(20);
+
+		   gpro_t.gTimer_run_dht11=0; 
 	
          
 		    buzzer_sound();
@@ -789,7 +779,7 @@ void JsonParse_Tencent_Cmd_Handler(void)
                       wind_total_value = wind_hundred*10 + wind_decade;
 
                   MqttData_Publis_SetFan(wind_total_value);
-                   osDelay(100);//HAL_Delay(50);//
+                   osDelay(300);//HAL_Delay(50);//
 
                     if(wind_total_value < 34 ){
 
@@ -814,7 +804,7 @@ void JsonParse_Tencent_Cmd_Handler(void)
                   wifi_t.set_wind_speed_value=0;
    
                   MqttData_Publis_SetFan(wifi_t.set_wind_speed_value);
-                  osDelay(100);//HAL_Delay(50);
+                  vTaskDelay(300);//osDelay(100);//HAL_Delay(50);
                   //do seomthing 
                    
                 }
