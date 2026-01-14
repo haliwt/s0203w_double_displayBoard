@@ -344,16 +344,28 @@ void receive_data_fromm_display(uint8_t *pdata)
 
       case 0x2A:   //set up temperature value 按键设置的温度�??
 
-       //  wake_up_backlight_on();
         if(pdata[4] == 0x01){ 
-          Buzzer_KeySound();
-		 
+          
+		  gctl_t.gSet_temperature_value  = pdata[5] ;  
 		  gpro_t.gTimer_set_temp_temp=0;
           g_tDisp.disp_set_temp_value_flag =1;
 		  gctl_t.manual_turn_off_ptc_flag = 0;
           gpro_t.set_temperature_value_success=1;
-		   gpro_t.gTImer_send_disp_board =10;
-          gctl_t.gSet_temperature_value  = pdata[5] ;  
+		  gpro_t.gTImer_send_disp_board =10;
+
+		    gkey_t.key_mode  = disp_timer_timing;
+
+			gkey_t.key_mode_shot_flag = 1;
+
+			gctl_t.ai_flag = 0; // DON'T DISP AI ICON
+
+		    gkey_t.key_mode_switch_flag = 1;
+			gkey_t.key_add_dec_mode = set_temp_value_item;
+            gkey_t.key_mode_be_pressed = 2;
+	
+			LCD_Disp_Timer_Timing_Init();
+			disp_ai_iocn();
+         
           if(gctl_t.interval_stop_run_flag==0){
            temperatureValue_compareHandler();
 
