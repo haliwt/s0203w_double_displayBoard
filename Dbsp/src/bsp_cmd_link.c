@@ -30,11 +30,11 @@ void FillFrame(uint8_t *buf, uint8_t cmd, uint8_t *data, uint8_t dataLen)
     buf[0] = FRAME_HEADER;
     buf[1] = 0x10; // Mainboard device number
     buf[2] = cmd;
-	if(dataLen ==0) buf[3]=0;
+	if(dataLen ==0) buf[3]=data[0];
     else buf[3] = 0x0F ; // Data or command
 
-	if(buf[3] ==0){
-       buf[4] = data[0];
+	if(buf[3] ==data[0]){
+       buf[4] = 00;
        buf[5] = FRAME_END;
 	   buf[6] = bcc_check(buf, 6 );
 	}
@@ -60,12 +60,11 @@ void FillFrame_Response(uint8_t *buf, uint8_t cmd, uint8_t *data, uint8_t dataLe
     buf[1] = 0x10;                  // 主板设备�?
     buf[2] = 0xFF;                  // 应答信号标志
     buf[3] = cmd;                   // 命令类型
-    buf[4] = (dataLen > 0) ? 0x0F : 0x00; // 数据标志�?0x0F 表示有数据，0x00 表示无数�?
+    buf[4] = (dataLen > 0) ? 0x0F : data[0]; // 数据标志�?0x0F 表示有数据，0x00 表示无数�?
 
-    if (buf[4] == 0x00) {           // 无数据的情况
-        buf[5] = data[0];           // 具体指令
-        buf[6] = FRAME_END;         // 帧尾
-        buf[7] = bcc_check(buf, 7); // 校验�?
+    if (buf[4] == data[0]) {           // 无数据的情况
+        buf[5] = FRAME_END;  // 帧尾         // 具体指令
+        buf[6] = bcc_check(buf, 6); // 校验�?
     } else {                        // 有数据的情况
         buf[5] = dataLen;           // 数据长度
         if (data != NULL) {         // �?查数据指针是否有�?
