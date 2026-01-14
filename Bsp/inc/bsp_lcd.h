@@ -209,7 +209,7 @@ void fan_error_code_number(void);
 
 void ptc_error_code_number(void);
 
-void display_works_times_handler(void);
+void display_works_times_four_numbers(uint8_t hours , uint8_t minutes,uint8_t sel);
 
 
 void display_timer_times_handler(void);

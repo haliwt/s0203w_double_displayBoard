@@ -11,7 +11,10 @@
 void temperatureValue_compareHandler(void)
 {
 
-  
+    static uint8_t recoder_close_ptc_times;
+
+    if(gpro_t.gTimer_set_temp_value > 4){
+		gpro_t.gTimer_set_temp_value=0;
     if(gpro_t.set_temperature_value_success==1){
 
   
@@ -20,27 +23,27 @@ void temperatureValue_compareHandler(void)
 
             if(gctl_t.manual_turn_off_ptc_flag ==0 && gctl_t.ptc_warning ==0 && gctl_t.fan_warning ==0){
                 gctl_t.ptc_flag = 1;
-				sendDisplayCommand(0x02,0x1); // 关闭干燥功能
-				osDelay(5);
+			
 
                 Ptc_On();
                 Disp_Dry_Icon();
 
                 gpro_t.gTimer_run_dht11=2;  //at once display sensor of temperature value 
 
-              
+              	sendDisplayCommand(0x22,0x01); // 关闭干燥功能
+				osDelay(10);
                   
             }
 
 
         }
-        else if(gctl_t.gSet_temperature_value <   gctl_t.dht11_temp_value || gctl_t.gSet_temperature_value ==   gctl_t.dht11_temp_value){
+        else if(gctl_t.gSet_temperature_value < gctl_t.dht11_temp_value || gctl_t.gSet_temperature_value ==   gctl_t.dht11_temp_value){
 
             gctl_t.ptc_flag = 0;
             Ptc_Off();
             Disp_Dry_Icon();
-			sendDisplayCommand(0x02,0); // 关闭干燥功能
-	        osDelay(5);
+			sendDisplayCommand(0x22,0); // 关闭干燥功能
+	        osDelay(10);
             
             gpro_t.gTimer_run_dht11=2;  //at once display sensor of temperature value 
 
@@ -48,8 +51,45 @@ void temperatureValue_compareHandler(void)
         }
  
     }
+	else{
 
-  
+	    if(gctl_t.interval_stop_run_flag  ==0){
+
+        if(gctl_t.dht11_temp_value > 39){
+				recoder_close_ptc_times=1;
+
+		        gctl_t.ptc_flag = 0;
+				Ptc_Off();
+				Disp_Dry_Icon();
+				sendDisplayCommand(0x22,0); // 关闭干燥功能
+	            osDelay(10);
+
+        }
+		else if(gctl_t.dht11_temp_value < 39 && recoder_close_ptc_times == 0 && gctl_t.manual_turn_off_ptc_flag ==0){
+
+		    
+	               gctl_t.ptc_flag = 1;
+				  
+				   Ptc_On();
+				   Disp_Dry_Icon();
+
+		}
+		else if(gctl_t.dht11_temp_value < 38 && recoder_close_ptc_times > 0 && gctl_t.manual_turn_off_ptc_flag ==0){
+
+		    
+	               gctl_t.ptc_flag = 1;
+				  
+				   Ptc_On();
+				   Disp_Dry_Icon();
+
+		}
+
+	    }
+	  
+
+	}
+
+    }
 }
 
 

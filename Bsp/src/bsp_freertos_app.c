@@ -275,7 +275,7 @@ static void AppTaskCreate (void)
 	
 	xTaskCreate( vTaskMsgPro,     		/* 任务函数  */
                  "vTaskMsgPro",   		/* 任务�?    */
-                 256,             		/* 任务栈大小，单位word，也就是4字节 */
+                 512,             		/* 任务栈大小，单位word，也就是4字节 */
                  NULL,           		/* 任务参数  */
                  1,               		/* 任务优先�?*/
                  &xHandleTaskMsgPro );  /* 任务句柄  */

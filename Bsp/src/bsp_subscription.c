@@ -736,7 +736,7 @@ void JsonParse_Tencent_Cmd_Handler(void)
          //   gkey_t.key_add_dec_mode = set_temp_value_item; //set_temp_value_item;
            
             gpro_t.smart_phone_set_tmep_value_flag = 1;//gpro_t.set_temperature_value_success =1;
-        
+
            gpro_t.gTimer_run_dht11=0; 
            wifi_t.gTimer_auto_detected_net_state_times=0;
            gpro_t.gTimer_set_temp_temp = 5;

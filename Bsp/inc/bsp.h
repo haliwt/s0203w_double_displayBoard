@@ -154,6 +154,7 @@ typedef struct {
    uint8_t gTimer_run_one_mintue ;
    
    uint8_t gTimer_run_total;
+   
  
 
    uint8_t gTimer_works_counter_sencods;
@@ -175,6 +176,8 @@ typedef struct {
    uint8_t gTimer_disp_works_time;
    uint8_t gTimer_set_timer_value;
    uint8_t gTimer_disp_smg_4bit;
+   uint8_t gTimer_disp_settemp_value;
+   uint8_t gTimer_set_temp_value;
   
 }BSP_process_t;
 

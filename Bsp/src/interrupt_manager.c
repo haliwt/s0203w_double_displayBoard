@@ -104,7 +104,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
         gpro_t.gTimer_update_data_to_tencent ++ ;
         gpro_t.gTimer_disp_works_time++;
 		gpro_t.gTimer_disp_smg_4bit++;
-   
+        gpro_t.gTimer_disp_settemp_value++ ;
+		gpro_t.gTimer_set_temp_value++;
         
         //wifi
 

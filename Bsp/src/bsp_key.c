@@ -598,8 +598,9 @@ void key_add_dec_set_temp_value_fun(void)
             Disp_SetTemp_Value(gctl_t.gSet_temperature_value );
             
             gpro_t.set_temperature_value_success =1;
-
-        
+            gctl_t.manual_turn_off_ptc_flag =0;
+            
+		
            
             sendData_setTemp_value(gctl_t.gSet_temperature_value ); //to send data the second display board
             osDelay(10);
