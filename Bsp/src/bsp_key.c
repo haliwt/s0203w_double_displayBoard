@@ -604,7 +604,7 @@ void key_add_dec_set_temp_value_fun(void)
            
             sendData_setTemp_value(gctl_t.gSet_temperature_value ); //to send data the second display board
             osDelay(10);
-             set_temp_value_compare_dht11_temp_value();
+            set_temp_value_compare_dht11_temp_value();
 
 
       }

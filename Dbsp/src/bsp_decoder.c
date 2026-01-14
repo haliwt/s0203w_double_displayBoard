@@ -350,7 +350,7 @@ void receive_data_fromm_display(uint8_t *pdata)
 
             gpro_t.gTimer_set_temp_value=20;
 	       
-		
+		   Disp_SetTemp_Value(gctl_t.gSet_temperature_value);
             
        
          }
