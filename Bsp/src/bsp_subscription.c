@@ -784,17 +784,21 @@ void JsonParse_Tencent_Cmd_Handler(void)
                     if(wind_total_value < 34 ){
 
                          wifi_t.set_wind_speed_value=2;
-                        
+                        SendData_Tx_Data(0x1E,20);
+					    vTaskDelay(10);
 
                      }
                      else if(wind_total_value> 33 && wind_total_value < 67){
                          wifi_t.set_wind_speed_value=1;
-                         
+                         SendData_Tx_Data(0x1E,60);
+					      vTaskDelay(10); 
 
                      }
                      else{
 
                         wifi_t.set_wind_speed_value=0;
+						SendData_Tx_Data(0x1E,100);
+					    vTaskDelay(10);
                         
 
                      }
