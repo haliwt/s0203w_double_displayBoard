@@ -605,6 +605,8 @@ void key_add_dec_set_temp_value_fun(void)
             sendData_setTemp_value(gctl_t.gSet_temperature_value ); //to send data the second display board
             osDelay(10);
             set_temp_value_compare_dht11_temp_value();
+			 MqttData_Publis_SetTemp(gctl_t.gSet_temperature_value);
+             osDelay(300);
 
 
       }
@@ -625,16 +627,7 @@ void key_add_dec_set_temp_value_fun(void)
        }
       
 
-     if(gpro_t.tencent_link_success==1){
-        
-        MqttData_Publis_SetTemp(gctl_t.gSet_temperature_value);
-        osDelay(50);
-
-        MqttData_Publish_SetPtc(gctl_t.ptc_flag);
-        osDelay(50);
-        
-        }
-
+   
 
 
     }

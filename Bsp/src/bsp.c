@@ -60,6 +60,13 @@ static void Process_Dynamical_Action(void)
        if(ptc_on_flag != gctl_t.ptc_flag ){
 	   	  ptc_on_flag = gctl_t.ptc_flag;
           Ptc_On();
+	   	  
+	      if(gpro_t.tencent_link_success==1){
+			 
+			 MqttData_Publish_SetPtc(gctl_t.ptc_flag);
+			 osDelay(200);
+			 
+		  }
 
        	}
        Disp_Dry_Icon();
@@ -71,6 +78,14 @@ static void Process_Dynamical_Action(void)
       if(ptc_off_flag != gctl_t.ptc_flag ){
 	   	  ptc_off_flag = gctl_t.ptc_flag;   
           Ptc_Off();
+
+		  
+	   if(gpro_t.tencent_link_success==1){
+			 
+			 MqttData_Publish_SetPtc(gctl_t.ptc_flag);
+			 osDelay(200);
+			 
+		}
        }
        Disp_Dry_Icon();
     }

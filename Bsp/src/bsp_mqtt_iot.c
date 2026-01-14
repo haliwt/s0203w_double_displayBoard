@@ -63,6 +63,9 @@ typedef struct {
 static serviceInfo    sg_info;
 
 
+
+
+
 // led attributes, corresponding to struct LedInfo
 //static char *sg_property_name[] = {"opne", "sonic", "find", "nowtemperature","state","ptc","Anion","temperature","Humidity"};
 void Mqtt_Value_Init(void)
@@ -142,8 +145,8 @@ void property_topic_publish(void)
 {
     static uint32_t ic_id;
 
-    char topic[128] = {0};
-    int  size;
+    char topic[80] = {0};
+    uint8_t  size;
 
     ic_id=HAL_GetUIDw0();
     size = snprintf(topic, sizeof(topic), "AT+TCMQTTPUB=\"$thing/up/property/%s/UYIJIA01-%d\",0,", PRODUCT_ID,ic_id);
@@ -162,8 +165,8 @@ void property_topic_publish(void)
 ********************************************************************************/
 static void property_report_power_on_init_state(void)
 {
-    char       message[256]    = {0};
-    int        message_len     = 0;
+    char       message[200]    = {0};
+    uint8_t         message_len     = 0;
 
     Mqtt_Value_Init();
    message_len = snprintf(message, sizeof(message),"\"{\\\"method\\\":\\\"report\\\"\\,\\\"clientToken\\\":\\\"up01\\\"\\,\\\"params\\\":{\\\"open\\\":%d\\,\\\"Anion\\\":%d\\,\\\"ptc\\\":%d\\,\\\"sonic\\\":%d\\,\\\"state\\\":%d\\,\\\"find\\\":%d\\,\\\"temperature\\\":%d}}\"\r\n",
@@ -177,8 +180,8 @@ static void property_report_power_on_init_state(void)
 
 static void property_report_update_data(void)
 {
-	char  message[256]    = {0};
-	int   message_len	   = 0;
+	char  message[200]    = {0};
+	uint8_t   message_len	   = 0;
 	
 	 Mqtt_Value_update_data();
 	 message_len = snprintf(message, sizeof(message),"\"{\\\"method\\\":\\\"report\\\"\\,\\\"clientToken\\\":\\\"up02\\\"\\,\\\"params\\\":{\\\"open\\\":%d\\,\\\"Anion\\\":%d\\,\\\"ptc\\\":%d\\,\\\"sonic\\\":%d\\,\\\"state\\\":%d\\,\\\"find\\\":%d\\,\\\"temperature\\\":%d}}\"\r\n",
@@ -192,8 +195,8 @@ static void property_report_update_data(void)
 
 static void property_report_smartphone_power_on_init(void)
 {
-	char  message[256]    = {0};
-	int   message_len	   = 0;
+	char  message[200]    = {0};
+	uint8_t   message_len	   = 0;
 	
 	// Mqtt_Value_update_data();
 	  mqtt_smart_phone_power_on_ref();
@@ -227,8 +230,8 @@ static void property_report_smartphone_power_on_init(void)
 static void property_report_power_off_state(void)
 {
 
-	char       message[256]    = {0};
-    int        message_len     = 0;
+	char       message[200]    = {0};
+    uint8_t         message_len     = 0;
 
    Mqtt_power_off_Value();
    message_len = snprintf(message, sizeof(message),"\"{\\\"method\\\":\\\"report\\\"\\,\\\"clientToken\\\":\\\"up01\\\"\\,\\\"params\\\":{\\\"open\\\":%d\\,\\\"Anion\\\":%d\\,\\\"ptc\\\":%d\\,\\\"sonic\\\":%d\\,\\\"state\\\":%d\\,\\\"find\\\":%d\\,\\\"temperature\\\":%d}}\"\r\n",
@@ -252,8 +255,8 @@ static void property_report_power_off_state(void)
 static void property_report_ReadTempHum(uint8_t tempvalue,uint8_t humvalue)
 {
 
-	   char	message[128]    = {0};
-	   int	message_len	  = 0;
+	  char	message[150]    = {0};
+	  uint8_t	message_len	  = 0;
 	   message_len = snprintf(message, sizeof(message),"\"{\\\"method\\\":\\\"report\\\"\\,\\\"clientToken\\\":\\\"up00\\\"\\,\\\"params\\\":{\\\"nowtemperature\\\":%d\\,\\\"Humidity\\\":%d}}\"\r\n"
 								,tempvalue,humvalue);
 								  
@@ -262,8 +265,8 @@ static void property_report_ReadTempHum(uint8_t tempvalue,uint8_t humvalue)
 
 static void property_report_SetState(uint8_t dat)
 {
-     char	message[128]    = {0};
-	 int	message_len	  = 0;
+     char	message[100]    = {0};
+	 uint8_t 	message_len	  = 0;
 	
 	
 	 message_len = snprintf(message, sizeof(message),"\"{\\\"method\\\":\\\"report\\\"\\,\\\"clientToken\\\":\\\"up04\\\"\\,\\\"params\\\":{\\\"state\\\":%d}}\"\r\n",dat);
@@ -281,8 +284,8 @@ static void property_report_SetState(uint8_t dat)
 ********************************************************************************/
 static void property_report_SetTemp(uint8_t temp)
 {
-     char	message[128]    = {0};
-	 int	message_len	  = 0;
+     char	message[90]    = {0};
+	 uint8_t 	message_len	  = 0;
 	
 	
 	 message_len = snprintf(message, sizeof(message),"\"{\\\"method\\\":\\\"report\\\"\\,\\\"clientToken\\\":\\\"up03\\\"\\,\\\"params\\\":{\\\"temperature\\\":%d}}\"\r\n",temp);
@@ -292,8 +295,8 @@ static void property_report_SetTemp(uint8_t temp)
 }
 static void property_report_SetOpen(uint8_t open)
 {
-     char	message[128]    = {0};
-	 int	message_len	  = 0;
+     char	message[100]    = {0};
+	 uint8_t	message_len	  = 0;
 	
 	
 	 message_len = snprintf(message, sizeof(message),"\"{\\\"method\\\":\\\"report\\\"\\,\\\"clientToken\\\":\\\"up04\\\"\\,\\\"params\\\":{\\\"open\\\":%d}}\"\r\n",open);
@@ -311,8 +314,8 @@ static void property_report_SetOpen(uint8_t open)
 ********************************************************************************/
 static void property_report_SetSonic(uint8_t datsonic)
 {
-     char	message[128]    = {0};
-	 int	message_len	  = 0;
+     char	message[90]    = {0};
+	 uint8_t	message_len	  = 0;
 	
 	
 	message_len = snprintf(message, sizeof(message),"\"{\\\"method\\\":\\\"report\\\"\\,\\\"clientToken\\\":\\\"up02\\\"\\,\\\"params\\\":{\\\"sonic\\\":%d}}\"\r\n"
@@ -331,8 +334,8 @@ static void property_report_SetSonic(uint8_t datsonic)
 ********************************************************************************/
 static void property_report_SetAnion(uint8_t datanion)
 {
-     char	message[128]    = {0};
-	 int	message_len	  = 0;
+     char	message[100]    = {0};
+	uint8_t 	message_len	  = 0;
 	
 	
 	 message_len = snprintf(message, sizeof(message),"\"{\\\"method\\\":\\\"report\\\"\\,\\\"clientToken\\\":\\\"up03\\\"\\,\\\"params\\\":{\\\"Anion\\\":%d}}\"\r\n"
@@ -351,8 +354,8 @@ static void property_report_SetAnion(uint8_t datanion)
 ********************************************************************************/
 static void property_report_SetPtc(uint8_t datptc)
 {
-     char	message[128]    = {0};
-	 int	message_len	  = 0;
+     char	message[100]    = {0};
+	 uint8_t 	message_len	  = 0;
 	
 	
 	 message_len = snprintf(message, sizeof(message),"\"{\\\"method\\\":\\\"report\\\"\\,\\\"clientToken\\\":\\\"up04\\\"\\,\\\"params\\\":{\\\"ptc\\\":%d}}\"\r\n"
@@ -374,8 +377,8 @@ static void property_report_SetPtc(uint8_t datptc)
 ********************************************************************************/
 static void property_report_SetFan(uint8_t fan)
 {
-     char	message[128]    = {0};
-	 int	message_len	  = 0;
+     char	message[100]    = {0};
+	 uint8_t	message_len	  = 0;
 	
 	
 	 message_len = snprintf(message, sizeof(message),"\"{\\\"method\\\":\\\"report\\\"\\,\\\"clientToken\\\":\\\"up05\\\"\\,\\\"params\\\":{\\\"find\\\":%d}}\"\r\n",fan);
@@ -394,8 +397,8 @@ static void property_report_SetFan(uint8_t fan)
 static void property_report_SetTime(uint8_t time)
 {
 
-	char   message[128]    = {0};
-	int    message_len	 = 0;
+	char   message[100]    = {0};
+	uint8_t     message_len	 = 0;
 	   
 	   
 	message_len = snprintf(message, sizeof(message),"\"{\\\"method\\\":\\\"report\\\"\\,\\\"clientToken\\\":\\\"up05\\\"\\,\\\"params\\\":{\\\"find\\\":%d}}\"\r\n",

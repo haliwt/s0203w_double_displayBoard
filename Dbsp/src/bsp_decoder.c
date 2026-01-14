@@ -334,6 +334,11 @@ void receive_data_fromm_display(uint8_t *pdata)
 	       gpro_t.gTimer_set_temp_value=20;
 	       
 		   Disp_SetTemp_Value(gctl_t.gSet_temperature_value);
+		   
+           if(gpro_t.tencent_link_success==1){
+		    MqttData_Publis_SetTemp(gctl_t.gSet_temperature_value);
+            osDelay(300);
+           	}
             
        
          }
