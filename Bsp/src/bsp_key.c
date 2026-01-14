@@ -428,9 +428,7 @@ void  key_mode_be_pressed_send_data_wifi(void)
 void Dec_Key_Fun(uint8_t cmd)
 {
 
- 
-
-    switch(cmd){
+  switch(cmd){
 
 	     case disp_works_timing:
 
@@ -603,8 +601,8 @@ void key_add_dec_set_temp_value_fun(void)
 
         
            
-             sendData_setTemp_value(gctl_t.gSet_temperature_value ); //to send data the second display board
-             osDelay(5);
+            sendData_setTemp_value(gctl_t.gSet_temperature_value ); //to send data the second display board
+            osDelay(10);
              set_temp_value_compare_dht11_temp_value();
 
 
@@ -620,6 +618,8 @@ void key_add_dec_set_temp_value_fun(void)
 
             //send_data_disp =0;//sendData_setTemp_value(gctl_t.gSet_temperature_value ); //to send data the second display board
             set_temp_value_compare_dht11_temp_value();
+
+			
 
        }
       
