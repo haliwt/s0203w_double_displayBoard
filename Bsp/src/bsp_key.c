@@ -128,8 +128,11 @@ void key_power_long_handler(void)
 			gpro_t.get_beijing_time_success =0;
 			
 		    wifi_t.gTimer_linking_tencent_duration=0; //120s
+		    SendData_Set_Command(0X05,0X01);
+             osDelay(50);
 
             Buzzer_KeySound();
+			
             
          }
 
@@ -166,11 +169,11 @@ void key_power_shot_handler(void)
               gpro_t.power_off_flag =1;
 			
 			   Buzzer_KeySound();
-
+               SendData_Set_Command(0X01,0X01);
+               osDelay(100);
 			   power_on_init_function();
          
-               SendData_Set_Command(0X01,0X01);
-               osDelay(5);
+               
             }
            else{
                Buzzer_KeySound();
@@ -183,7 +186,7 @@ void key_power_shot_handler(void)
               power_off_init_function();
   
 			 SendData_Set_Command(0X01,0X0);
-               osDelay(5);
+              osDelay(100);
 
            }
          
@@ -261,6 +264,8 @@ void key_mode_long_handler(void)
            
            Buzzer_KeySound();//buzzer_sound();
            Set_Timer_Timing_Lcd_Blink();
+		   SendData_Set_Command(0x05,0x01);
+		   vTaskDelay(100);
 		 
           }
 

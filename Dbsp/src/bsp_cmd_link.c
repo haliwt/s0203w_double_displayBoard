@@ -93,7 +93,11 @@ void TransmitData(uint8_t *buf, uint8_t size)
     	HAL_UART_Transmit_DMA(&huart1, buf, transferSize);
     #endif
 }
-//送命令响�?
+/**
+*@breif
+*@param
+*@notice
+**/
 void SendWifiData_Answer_Cmd(uint8_t cmd, uint8_t cmdata) 
 {
     uint8_t cmdData[1] = {cmdata};
