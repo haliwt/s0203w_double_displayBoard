@@ -132,7 +132,7 @@ void Get_Fan_Adc_Fun(uint32_t channel,uint8_t times)
 	
    
    
-   if(fan_detect_voltage < 320 ){
+   if(fan_detect_voltage < 500){//
          detect_error_times ++;
 	          
 		if(detect_error_times >2){
@@ -162,10 +162,7 @@ void Get_Fan_Adc_Fun(uint32_t channel,uint8_t times)
 
           }
 		
-		
-
-        
-   }
+    }
    else{
       detect_error_times=0;
 
@@ -185,11 +182,11 @@ static void Detected_Fan_Error(void)
 {
      //2 minute 180s
 		
-        if(wifi_t.set_wind_speed_value ==0){ //max fan speed be detected if not defalut .
-        if( gctl_t.interval_stop_run_flag  ==0){
+       
+		   fan_max();
 		   Get_Fan_Adc_Fun(ADC_CHANNEL_0,10);
-        }
-        }
+        
+        
 				
 	
 }

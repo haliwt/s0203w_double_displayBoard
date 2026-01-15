@@ -92,6 +92,7 @@ void Fan_Run_Lower(void)
    
    
    HAL_TIM_PWM_Start(&htim16, TIM_CHANNEL_1);//ultrasnoic On
+  // FAN_CCW_SetHigh();
    FAN_COM_SetLow(); //PA6
 
 
@@ -116,6 +117,15 @@ void Fan_Stop(void)
 
     FAN_COM_SetLow(); //PA6
   
+}
+
+
+void fan_max(void)
+{
+
+    FAN_CCW_SetHigh();
+	FAN_COM_SetLow(); //PA7
+
 }
 
 

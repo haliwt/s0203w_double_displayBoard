@@ -102,7 +102,7 @@ static void vTaskUsartPro(void *pvParameters)//static void vTaskMsgPro(void *pvP
 {
 
     BaseType_t xResult;
-	const TickType_t xMaxBlockTime = pdMS_TO_TICKS(20000); /* 设置�?大等待时间为100ms */
+	const TickType_t xMaxBlockTime = pdMS_TO_TICKS(10000); /* 设置�?大等待时间为100ms */
 	uint32_t ulValue;
 	
 	while(1)
@@ -113,7 +113,7 @@ static void vTaskUsartPro(void *pvParameters)//static void vTaskMsgPro(void *pvP
 		xResult = xTaskNotifyWait(0x00000000,	   
 							   		0xFFFFFFFF,	  
 							    	&ulValue,		  /* 保存ulNotifiedValue到变量ulValue�? */
-									xMaxBlockTime );  /* �?大允许延迟时�? */
+								    xMaxBlockTime);  /*  portMAX_DELAY */
 		   
 		if( xResult == pdPASS )
 		{
@@ -228,7 +228,7 @@ static void vTaskMsgPro(void *pvParameters)//static void vTaskStart(void *pvPara
 		 
         
       // receive_message_displaybord_handler();
-       vTaskDelay(40);
+       vTaskDelay(100);
       }
 
     }

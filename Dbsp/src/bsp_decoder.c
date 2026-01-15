@@ -274,7 +274,7 @@ void receive_data_fromm_display(uint8_t *pdata)
 
 	 case 0x07: //switch display by has been set up timer value or works timing value
 
-	       Buzzer_KeySound();
+	      // Buzzer_KeySound();
 		   #if 0
 	        if(pdata[3] == 0x02 || pdata[3] ==0x01 || pdata[3] ==0x0){  //display AI =2,disp_timer_item.
 	           Buzzer_KeySound();
