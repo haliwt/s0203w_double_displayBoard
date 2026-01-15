@@ -237,23 +237,13 @@ void receive_data_fromm_display(uint8_t *pdata)
 
       case 0x05: // link wifi command
           buzzer_sound();
+		
 
-          wake_up_backlight_on();
-         gpro_t.gTimer_shut_off_backlight =0;
-         
-
-       if(pdata[3] == 0x01){  // link wifi 
-        
-
-        second_disp_set_link_wifi_fun();
-
-           
-            
-
-        }
-        else if(pdata[3] == 0x0){ //don't link wifi 
-
-        }
+         gpro_t.tencent_link_success=0;
+         gkey_t.wifi_led_fast_blink_flag=1;
+         wifi_t.gTimer_linking_tencent_duration=0;
+          SendWifiData_Answer_Cmd(0x05,0x01); //WT.EDIT 2025.01.07 
+		  vTaskDelay(10);
 
 
      break;

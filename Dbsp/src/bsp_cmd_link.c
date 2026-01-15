@@ -62,10 +62,12 @@ void FillFrame_Response(uint8_t *buf, uint8_t cmd, uint8_t *data, uint8_t dataLe
     buf[3] = cmd;                   // 命令类型
     buf[4] = (dataLen > 0) ? 0x0F : data[0]; // 数据标志�?0x0F 表示有数据，0x00 表示无数�?
 
-    if (buf[4] == data[0]) {           // 无数据的情况
+    if (buf[4] != 0x0F){           // 无数据的情况
+        buf[4] = data[0];
         buf[5] = FRAME_END;  // 帧尾         // 具体指令
         buf[6] = bcc_check(buf, 6); // 校验�?
-    } else {                        // 有数据的情况
+    } 
+	else {                        // 有数据的情况
         buf[5] = dataLen;           // 数据长度
         if (data != NULL) {         // �?查数据指针是否有�?
             for (uint8_t i = 0; i < dataLen; i++) {
@@ -96,7 +98,7 @@ void SendWifiData_Answer_Cmd(uint8_t cmd, uint8_t cmdata)
 {
     uint8_t cmdData[1] = {cmdata};
     FillFrame_Response(outputBuf, cmd,cmdData ,0);
-    TransmitData(outputBuf,8);
+    TransmitData(outputBuf,7);
 }
 
 
