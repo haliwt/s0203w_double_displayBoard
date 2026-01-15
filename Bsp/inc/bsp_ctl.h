@@ -42,8 +42,8 @@ typedef struct _bsp_ctl{
 
 
     //wifi
-    uint8_t disp_works_hours;
-    uint8_t disp_works_minutes;
+  
+  
     uint8_t gTimer_ctl_disp_disp_works_timing_second;
 
     uint8_t  dht11_temp_value;

@@ -168,6 +168,8 @@ static void vTaskMsgPro(void *pvParameters)//static void vTaskStart(void *pvPara
           Backlight_Off();
           
           buzzer_sound();
+		  LCD_Numbers1234_Init();
+		  LED_POWER_ON();
           gpro_t.shut_Off_backlight_flag = turn_on;
         }
 		

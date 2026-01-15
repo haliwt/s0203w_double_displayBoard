@@ -354,7 +354,7 @@ void power_on_init_function(void)
 	}
 	else{
 		MqttData_Publis_App_PowerOn_Ref();
-	    osDelay(50);//HAL_Delay(50);//
+	    osDelay(300);//HAL_Delay(50);//
 
 		SendWifiData_Ref_three(gctl_t.ptc_flag,gctl_t.plasma_flag,gctl_t.ultrasonic_flag);
 		osDelay(10);//HAL_Delay(50);//
@@ -382,7 +382,7 @@ void power_on_init_function(void)
 
 	if(gpro_t.tencent_link_success==1){
 		MqttData_Publish_SetOpen(1);  
-		osDelay(30);//300
+		osDelay(300);//300
 
 		Subscriber_Data_FromCloud_Handler();
 		osDelay(200);//HAL_Delay(30);
@@ -423,10 +423,10 @@ void power_on_init_function(void)
 	if(gpro_t.tencent_link_success==1){
 
 		Publish_Data_Warning(fan_warning,no_warning);
-		osDelay(100);
+		osDelay(300);
 
 		Publish_Data_Warning(ptc_temp_warning,no_warning);
-		osDelay(100);
+		osDelay(200);
 
 	}
 	TM1723_All_Off();

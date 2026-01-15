@@ -28,7 +28,7 @@ static uint8_t ai_mode_default(void);
 
 static uint8_t power_on_default(void);
 static void local_read_latency_ten_minutes(void);
-static void wake_up_backlight_on_fun(void);
+//static void wake_up_backlight_on_fun(void);
 
 
 
@@ -58,7 +58,7 @@ void bsp_ctl_init(void)
    Ptc_error_state_Handler(Ptc_Error_Default_Handler);
    Fan_error_state_Handler(Fan_Error_Default_Handler);
    backlight_on_off_handler(local_read_latency_ten_minutes);
-   wake_up_backlight_on_handler(wake_up_backlight_on_fun);
+  // wake_up_backlight_on_handler(wake_up_backlight_on_fun);
 
 
 
@@ -309,18 +309,18 @@ void  backlight_on_off_handler(void (*backlight_state_handler)(void))
  * Return Ref
  * 
 *****************************************************************************/
-void wake_up_backlight_on_fun(void)
-{
+//void wake_up_backlight_on_fun(void)
+//{
 
-   if(gkey_t.key_power==power_on && gpro_t.shut_Off_backlight_flag == turn_off){
+//   if(gkey_t.key_power==power_on && gpro_t.shut_Off_backlight_flag == turn_off){
                
-           gpro_t.shut_Off_backlight_flag = turn_on;
-           gpro_t.gTimer_shut_off_backlight =0;
-           Backlight_On();
-     }
+//           gpro_t.shut_Off_backlight_flag = turn_on;
+//           gpro_t.gTimer_shut_off_backlight =0;
+//           Backlight_On();
+//     }
 
 
-}
+//}
 
 
 void  wake_up_backlight_on_handler(void (*backlight_on_handler)(void))
