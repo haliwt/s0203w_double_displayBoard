@@ -696,7 +696,7 @@ void JsonParse_Tencent_Cmd_Handler(void)
 			vTaskDelay(300);//HAL_Delay(200);
 
             SendData_Set_Command(0x27, 0x01); //AI turn on command
-            vTaskDelay(10);
+            vTaskDelay(100);
            
 			
           

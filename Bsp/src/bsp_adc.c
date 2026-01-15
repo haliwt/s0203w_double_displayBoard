@@ -97,16 +97,16 @@ void Get_PTC_Temperature_Voltage(uint32_t channel,uint8_t times)
         if(gpro_t.tencent_link_success==1){
 
         Publish_Data_Warning(ptc_temp_warning,warning);
-	     HAL_Delay(200);//osDelay(300);//HAL_Delay(350);
+	     vTaskDelay(300);//HAL_Delay(200);//osDelay(300);//HAL_Delay(350);
  
  
         MqttData_Publish_SetPtc(0);
-		 HAL_Delay(100);//osDelay(300);//HAL_Delay(350);  
+		 vTaskDelay(300);//HAL_Delay(100);//osDelay(300);//HAL_Delay(350);  
 
         }
 
 	     SendData_Set_Command(0x08,0x01); //ptc error codes
-   	      
+   	     vTaskDelay(100); 
    }
 }
 
@@ -137,6 +137,8 @@ void Get_Fan_Adc_Fun(uint32_t channel,uint8_t times)
 	          
 		if(detect_error_times >2){
 			detect_error_times = 3;
+		   Ptc_Off(); //WT.EDIT .2026.01.15
+		   gctl_t.ptc_flag =0;//WT.EDIT .2026.01.15
 		  gctl_t.fan_warning = 1;
           gkey_t.key_mode = disp_fan_error_number; //disp_error_number;
 		  Buzzer_Fan_Error_Sound();
@@ -146,20 +148,20 @@ void Get_Fan_Adc_Fun(uint32_t channel,uint8_t times)
        
           if(gpro_t.tencent_link_success ==1){
            Publish_Data_Warning(fan_warning,warning);
-	       HAL_Delay(100);//osDelay(350);//HAL_Delay(350);
+	       vTaskDelay(300);//HAL_Delay(300);//osDelay(350);//HAL_Delay(350);
 
            MqttData_Publis_SetFan(0);
-	       HAL_Delay(200);//osDelay(350);//HAL_Delay(350);
+	        vTaskDelay(300);//HAL_Delay(300);//osDelay(350);//HAL_Delay(350);
 
             MqttData_Publish_SetPtc(0);
-            HAL_Delay(200);//osDelay(350);//HAL_Delay(350);
+             vTaskDelay(300);//HAL_Delay(300);//osDelay(350);//HAL_Delay(350);
 
              
 
             }
 
 			SendData_Set_Command(0x09,0x01); //fan error codes
-
+             vTaskDelay(100);
           }
 		
     }

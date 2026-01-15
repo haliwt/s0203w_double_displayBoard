@@ -123,7 +123,7 @@ uint8_t DHT11_Read_TempAndHumidity(DHT11_Data_TypeDef *DHT11_Data)
 	/*主机拉低*/
 	DHT11_Dout_LOW();
 	/*延时18ms*/
-	HAL_Delay(20);
+	vTaskDelay(20);//HAL_Delay(20);
 
 	/*总线拉高 主机延时30us*/
 	DHT11_Dout_HIGH(); 

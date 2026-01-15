@@ -227,7 +227,7 @@ void receive_data_fromm_display(uint8_t *pdata)
 
               if(gpro_t.tencent_link_success==1){
               MqttData_Publish_SetUltrasonic(0x0);
-	  	      osDelay(50);//HAL_Delay(350);
+	  	      osDelay(300);//HAL_Delay(350);
              }
 
         }

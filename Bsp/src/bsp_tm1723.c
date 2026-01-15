@@ -43,7 +43,7 @@
 
 // 延时函数
 void Delay_us(uint16_t us) {
-    HAL_Delay(us / 1000 + 1);  // �?单实现，至少保证 1ms 的延�?
+    //HAL_Delay(us / 1000 + 1);  // �?单实现，至少保证 1ms 的延�?
 }
 
   /**
