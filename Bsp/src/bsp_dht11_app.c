@@ -12,6 +12,7 @@ void temperatureValue_compareHandler(void)
 {
 
     static uint8_t recoder_close_ptc_times,ptc_default_on= 0xff, ptc_default_off = 0xff;
+	static uint8_t first_set_ptc_on ;
 
     if(gpro_t.gTimer_set_temp_value > 4){
 		gpro_t.gTimer_set_temp_value=0;
@@ -22,20 +23,36 @@ void temperatureValue_compareHandler(void)
         if(gctl_t.gSet_temperature_value > gctl_t.dht11_temp_value && gctl_t.interval_stop_run_flag  ==0){
 
             if(gctl_t.manual_turn_off_ptc_flag ==0 && gctl_t.ptc_warning ==0 && gctl_t.fan_warning ==0){
-                gctl_t.ptc_flag = 1;
-			
 
-                
-                Disp_Dry_Icon();
+                if(first_set_ptc_on==0 ||first_set_ptc_on==1 ){
+					first_set_ptc_on=1;
+					gctl_t.ptc_flag = 1;
+				    Disp_Dry_Icon();
 
-                gpro_t.gTimer_run_dht11=2;  //at once display sensor of temperature value 
-                if(ptc_default_on != gctl_t.ptc_flag ){
-					ptc_default_on = gctl_t.ptc_flag;
-					Ptc_On();
-	              	sendDisplayCommand(0x22,0x01); // 关闭干燥功能
-					osDelay(10);
+	                gpro_t.gTimer_run_dht11=2;  //at once display sensor of temperature value 
+	                if(ptc_default_on != gctl_t.ptc_flag ){
+						ptc_default_on = gctl_t.ptc_flag;
+						Ptc_On();
+		              	sendDisplayCommand(0x22,0x01); // 关闭干燥功能
+						osDelay(10);
+
+	                }
 
                 }
+				else if(first_set_ptc_on==2 && (gctl_t.gSet_temperature_value  -3) >= gctl_t.dht11_temp_value){
+                      gctl_t.ptc_flag = 1;
+				      Disp_Dry_Icon();
+
+	                  gpro_t.gTimer_run_dht11=2;  //at once display sensor of temperature value 
+	                   if(ptc_default_on != gctl_t.ptc_flag ){
+						ptc_default_on = gctl_t.ptc_flag;
+						Ptc_On();
+		              	sendDisplayCommand(0x22,0x01); // 关闭干燥功能
+						osDelay(10);
+
+	                }
+
+				}
                   
             }
 
@@ -46,6 +63,8 @@ void temperatureValue_compareHandler(void)
             gctl_t.ptc_flag = 0;
             Ptc_Off();
             Disp_Dry_Icon();
+			if(first_set_ptc_on==1)first_set_ptc_on=2;
+			
 			if(ptc_default_off != gctl_t.ptc_flag ){
 			     ptc_default_off = gctl_t.ptc_flag;
 				  Ptc_Off();
