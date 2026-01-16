@@ -533,7 +533,7 @@ void JsonParse_Tencent_Cmd_Handler(void)
 	  	if(power_on_state() ==power_on && ptc_error_state()==0 && fan_error_state()==0){
 		
 		 gpro_t.gTimer_shut_off_backlight =0;
-         //wake_up_backlight_on();
+    
          MqttData_Publish_SetPtc(0);
 		 osDelay(300);//HAL_Delay(350);
 
@@ -561,7 +561,7 @@ void JsonParse_Tencent_Cmd_Handler(void)
 	  case ANION_OFF_ITEM: //"杀菌" //5
 	  	if(power_on_state() ==power_on && ptc_error_state()==0 && fan_error_state()==0){
 		     gpro_t.gTimer_shut_off_backlight =0;
-             wake_up_backlight_on();
+     
 		    Plasma_Off();
 	    
 			
@@ -586,7 +586,7 @@ void JsonParse_Tencent_Cmd_Handler(void)
 	  case ANION_ON_ITEM: //plasma 
 	  	if(power_on_state() ==power_on && ptc_error_state()==0 && fan_error_state()==0){
 			gpro_t.gTimer_shut_off_backlight =0;
-            wake_up_backlight_on();
+  
 			Plasma_On();
 	  
             MqttData_Publish_SetPlasma(1);
@@ -607,7 +607,7 @@ void JsonParse_Tencent_Cmd_Handler(void)
 	  case SONIC_OFF_ITEM://ultransonic off
         if(power_on_state() ==power_on && ptc_error_state()==0 && fan_error_state()==0){
             gpro_t.gTimer_shut_off_backlight =0;
-            wake_up_backlight_on();
+    
 			Ultrasonic_Pwm_Stop();
 	    
             MqttData_Publish_SetUltrasonic(0);
@@ -630,7 +630,6 @@ void JsonParse_Tencent_Cmd_Handler(void)
 	    if(power_on_state() ==power_on && ptc_error_state()==0 && fan_error_state()==0){
 			
 			gpro_t.gTimer_shut_off_backlight =0;
-            wake_up_backlight_on();
 			Ultrasonic_Pwm_Output();
             MqttData_Publish_SetUltrasonic(1);
 			vTaskDelay(300);//HAL_Delay(200);
@@ -654,7 +653,7 @@ void JsonParse_Tencent_Cmd_Handler(void)
 	  if(power_on_state() ==power_on && ptc_error_state()==0 && fan_error_state()==0){
 	  	    buzzer_sound();
             gpro_t.gTimer_shut_off_backlight =0;
-             wake_up_backlight_on();
+       
 	       
 	        gkey_t.key_mode=disp_timer_timing;
             gctl_t.ai_flag = 0 ; //timer model
@@ -681,7 +680,6 @@ void JsonParse_Tencent_Cmd_Handler(void)
 	  	 if(power_on_state() ==power_on && ptc_error_state()==0 && fan_error_state()==0){
 
             gpro_t.gTimer_shut_off_backlight =0;
-             wake_up_backlight_on();
 		    buzzer_sound();
 		    gkey_t.key_mode=disp_works_timing;
             gctl_t.ai_flag = 1;//AI mode
@@ -713,7 +711,7 @@ void JsonParse_Tencent_Cmd_Handler(void)
 	   if(power_on_state() ==power_on && ptc_error_state()==0 && fan_error_state()==0){
 
              gpro_t.gTimer_shut_off_backlight =0;
-             wake_up_backlight_on();
+      
 
              gctl_t.manual_turn_off_ptc_flag= 0; //only  manual turn on flag is zero can be changed .
 			 gpro_t.gTimer_run_dht11=0;  // don't display sensor of temperature value 
@@ -764,7 +762,7 @@ void JsonParse_Tencent_Cmd_Handler(void)
 	    if(power_on_state() ==power_on && ptc_error_state()==0 && fan_error_state()==0){
 			buzzer_sound();
             gpro_t.gTimer_shut_off_backlight =0;
-             wake_up_backlight_on();
+   
 
 		     if(gctl_t.fan_warning ==0){
                  
@@ -826,7 +824,7 @@ void JsonParse_Tencent_Cmd_Handler(void)
 
 	
 		 //gpro_t.gTimer_shut_off_backlight =0;
-          //wake_up_backlight_on();
+         
 		
 		   wifi_t.get_rx_beijing_time_enable=0; //enable beijing times
           

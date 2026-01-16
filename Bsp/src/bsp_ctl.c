@@ -16,7 +16,7 @@ uint8_t (*ptc_error_state)(void);
 uint8_t (*fan_error_state)(void);
 
 void (*backlight_on_off_state)(void);
-void (*wake_up_backlight_on)(void);
+
 
 
 
@@ -323,11 +323,5 @@ void  backlight_on_off_handler(void (*backlight_state_handler)(void))
 //}
 
 
-void  wake_up_backlight_on_handler(void (*backlight_on_handler)(void))
-{
-    wake_up_backlight_on = backlight_on_handler;
-
-
-}
 
 

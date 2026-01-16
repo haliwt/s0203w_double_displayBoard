@@ -82,8 +82,7 @@ extern uint8_t (*power_on_state)(void);
 extern uint8_t (*ptc_error_state)(void);
 extern uint8_t (*fan_error_state)(void);
 
-extern void (*backlight_on_off_state)(void);
-extern void (*wake_up_backlight_on)(void);
+
 
 
 void bsp_ctl_init(void);

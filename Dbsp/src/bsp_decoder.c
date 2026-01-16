@@ -78,7 +78,7 @@ void receive_data_fromm_display(uint8_t *pdata)
      if(pdata[3] == 0x01){
 
         buzzer_sound();
-        wake_up_backlight_on();
+
          gpro_t.gTimer_shut_off_backlight =0;
        
           gctl_t.manual_turn_off_ptc_flag = 0;
@@ -97,9 +97,7 @@ void receive_data_fromm_display(uint8_t *pdata)
        }
        else if(pdata[3] == 0x0){
         
-          //buzzer_sound();
-          //wake_up_backlight_on();
-          //gpro_t.gTimer_shut_off_backlight =0;
+    
           Buzzer_KeySound();
           gctl_t.manual_turn_off_ptc_flag = 1;
        
@@ -145,7 +143,7 @@ void receive_data_fromm_display(uint8_t *pdata)
      case 0x03: //PLASMA 打开关闭指令
 
          buzzer_sound();
-         wake_up_backlight_on();
+      
 
         gpro_t.gTimer_shut_off_backlight =0;
          
@@ -368,25 +366,8 @@ void receive_data_fromm_display(uint8_t *pdata)
      
 
      case 0x27: //AI mode 
-      wake_up_backlight_on();
-      gpro_t.gTimer_shut_off_backlight =0;
+     
 
-      if(pdata[3] == 0x01){ //AI mode ,don't buzzer sound .
-        
-        g_tDisp.ai_mode_flag =1;
-        gkey_t.key_mode = disp_works_timing;
-      //   second_disp_ai_time_fun();
-      }
-       else{
-      
-        gkey_t.key_mode = disp_timer_timing;
-        g_tDisp.ai_mode_flag =2 ;
-        gpro_t.gTimer_disp_short_time =0;
-       // second_disp_not_ai_timer_fun();
-       
-            
-
-        }
         
      break;
 
