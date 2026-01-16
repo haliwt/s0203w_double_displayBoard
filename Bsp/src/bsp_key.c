@@ -16,6 +16,21 @@ key_fun_t gkey_t;
 
 uint8_t set_timer_blink_counter;
 
+
+//// 读取KEY_POWER引脚状态
+//uint8_t Read_KEY_POWER(void)
+//{
+//    // 假设KEY_POWER连接到GPIOA的某个引脚
+//    // 实际使用时需要根据具体连接修改
+    
+//    // 方法1：直接使用端口输入数据寄存器
+//    return (KEY_POWER_GPIO_Port->IDR & KEY_POWER_Pin) ? GPIO_PIN_SET : GPIO_PIN_RESET;
+    
+//    // 或者更简洁的写法：
+//    // return (GPIOA->IDR & KEY_POWER_Pin) >> (KEY_POWER_Pin_Pos);
+//}
+
+
 /************************************************************************************
 	*
 	*Funtion Name:void key_handler(void)
@@ -38,21 +53,13 @@ void key_handler(void)
 
           gkey_t.key_dec_flag =1;
 
-//      if(gkey_t.key_dec_flag < 6 ){
-//
-//    	  gkey_t.key_dec_flag ++;
-//
-//      }
 
     }
 	else if(KEY_ADD_VALUE()==KEY_DOWN && gkey_t.key_power==power_on ){
 		
            gkey_t.key_add_flag =1;
 
-//        if(gkey_t.key_add_flag< 6){
-//		   gkey_t.key_add_flag++;
-//
-//        }
+
 
 	}
 
@@ -76,21 +83,7 @@ void key_handler(void)
 
 	}
 	
-  #if 0
-	if(gkey_t.key_dec_flag ==6 ){
- 
-    	  Dec_Key_Fun(gkey_t.key_add_dec_mode);
-    	  Buzzer_KeySound();
-    	  gkey_t.key_dec_flag=0;
-     }
-	 else if(gkey_t.key_add_flag==6){
 
-         Add_Key_Fun(gkey_t.key_add_dec_mode);
-         Buzzer_KeySound();
-	      gkey_t.key_add_flag=0;
-
-	 }
-   #endif 
 
 }
 

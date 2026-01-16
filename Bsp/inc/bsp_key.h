@@ -2,13 +2,18 @@
 #define __BSP_KEY_H_
 #include "main.h"
 
-#define KEY_POWER_VALUE()    HAL_GPIO_ReadPin(KEY_POWER_GPIO_Port, KEY_POWER_Pin)
 
-#define KEY_MODE_VALUE()     HAL_GPIO_ReadPin(KEY_MODE_GPIO_Port, KEY_MODE_Pin)
+// 宏定义方式（效率最高）
+#define GPIO_READ_PIN(PORT, PIN)    (((PORT)->IDR & (PIN)) ? GPIO_PIN_SET : GPIO_PIN_RESET)
 
-#define KEY_DEC_VALUE()    HAL_GPIO_ReadPin(KEY_DOWN_GPIO_Port, KEY_DOWN_Pin)
 
-#define KEY_ADD_VALUE()    HAL_GPIO_ReadPin(KEY_UP_GPIO_Port, KEY_UP_Pin)
+#define KEY_POWER_VALUE()    (((KEY_POWER_GPIO_Port)->IDR & (KEY_POWER_Pin)) ? GPIO_PIN_SET : GPIO_PIN_RESET)//HAL_GPIO_ReadPin(KEY_POWER_GPIO_Port, KEY_POWER_Pin)
+
+#define KEY_MODE_VALUE()     (((KEY_MODE_GPIO_Port)->IDR & (KEY_MODE_Pin)) ? GPIO_PIN_SET : GPIO_PIN_RESET) //HAL_GPIO_ReadPin(KEY_MODE_GPIO_Port, KEY_MODE_Pin)
+
+#define KEY_DEC_VALUE()     (((KEY_DOWN_GPIO_Port)->IDR & (KEY_DOWN_Pin)) ? GPIO_PIN_SET : GPIO_PIN_RESET)//HAL_GPIO_ReadPin(KEY_DOWN_GPIO_Port, KEY_DOWN_Pin)
+
+#define KEY_ADD_VALUE()     (((KEY_UP_GPIO_Port)->IDR & (KEY_UP_Pin)) ? GPIO_PIN_SET : GPIO_PIN_RESET)///HAL_GPIO_ReadPin(KEY_UP_GPIO_Port, KEY_UP_Pin)
 
 
 typedef enum{
