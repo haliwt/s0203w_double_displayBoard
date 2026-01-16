@@ -17,7 +17,7 @@ void power_off_init_function(void)
     		gpro_t.power_off_flag ++;
     	    
            //key set ref 
-           gpro_t.disp_power_on_flag = 1;
+
            gkey_t.gTimer_power_off_run_times=0;
            gkey_t.wifi_led_fast_blink_flag=0;
             gctl_t.ptc_flag =0;
@@ -430,7 +430,7 @@ void power_on_init_function(void)
 
 	}
 	//TM1723_All_Off();
-	// TIM1723_Write_Cmd(LUM_VALUE);//(0x97);//(0x94);//(0x9B);
+	TIM1723_Write_Cmd(LUM_VALUE);//(0x97);//(0x94);//(0x9B);
 
 }
 

@@ -56,7 +56,7 @@ void receive_data_fromm_display(uint8_t *pdata)
             gpro_t.disp_power_on_flag = 1;
 			gkey_t.key_power=power_on;
            SendWifiData_Answer_Cmd(0x01,0x01); //WT.EDIT 2025.01.07 
-           osDelay(20);
+           osDelay(50);
 
 
         }
@@ -67,7 +67,7 @@ void receive_data_fromm_display(uint8_t *pdata)
          
 
          SendWifiData_Answer_Cmd(0x01,0x0); //WT.EDIT 2025.01.07
-		 osDelay(20);
+		 osDelay(50);
         }
     	
 

@@ -31,6 +31,9 @@ void sendDisplayCommand(uint8_t command,uint8_t data) ;
 
 void SendData_Data(uint8_t cmd, uint8_t data) ;
 
+void SendData_threeData(uint8_t cmd, uint8_t *data) ;
+
+
 
 
 #endif 

@@ -136,6 +136,12 @@ void SendData_Data(uint8_t cmd, uint8_t data)
     TransmitData(outputBuf, 8);
 }
 
+void SendData_threeData(uint8_t cmd, uint8_t *data) 
+{
+   // uint8_t cmdData[1] ;
+    FillFrame(outputBuf, cmd, data,3);
+    TransmitData(outputBuf, 10);
+}
 
 /********************************************************************************
 	**
