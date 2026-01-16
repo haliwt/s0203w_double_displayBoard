@@ -102,7 +102,7 @@ static void vTaskUsartPro(void *pvParameters)//static void vTaskMsgPro(void *pvP
 {
 
     BaseType_t xResult;
-	const TickType_t xMaxBlockTime = pdMS_TO_TICKS(10000); /* 设置�?大等待时间为100ms */
+	const TickType_t xMaxBlockTime = pdMS_TO_TICKS(3000); /* 设置�?大等待时间为100ms */
 	uint32_t ulValue;
 	
 	while(1)
@@ -168,7 +168,7 @@ static void vTaskMsgPro(void *pvParameters)//static void vTaskStart(void *pvPara
           Backlight_Off();
           
           buzzer_sound();
-		  LCD_Numbers1234_Init();
+		//  LCD_Numbers1234_Init();
 		  LED_POWER_ON();
           gpro_t.shut_Off_backlight_flag = turn_on;
         }
@@ -374,7 +374,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 		}
 
       //  ENABLE_INT();
-	    __HAL_UART_CLEAR_OREFLAG(&huart1);
+	  //  __HAL_UART_CLEAR_OREFLAG(&huart1);
 		HAL_UART_Receive_IT(&huart1,disp_inputBuf,1);//UART receive data interrupt 1 byte
 		
 	}

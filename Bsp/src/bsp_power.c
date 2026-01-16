@@ -367,15 +367,15 @@ void power_on_init_function(void)
 	Backlight_On();
 
 
-	LCD_Numbers1234_Init();
-	Display_Wind_Icon_Inint();
+	//LCD_Numbers1234_Init();
+	//Display_Wind_Icon_Inint();
 
 	Update_DHT11_Value();
 
 
 	sendData_Real_TimeHum(gctl_t.dht11_humidity_value,gctl_t.dht11_temp_value);
 	osDelay(5);
-
+    LCD_Numbers1234_Init();
 	LCD_Fan_Run_Icon(0);
 	Disp_HumidityTemp_Init();
 
@@ -429,7 +429,7 @@ void power_on_init_function(void)
 		osDelay(200);
 
 	}
-	TM1723_All_Off();
+	//TM1723_All_Off();
 	// TIM1723_Write_Cmd(LUM_VALUE);//(0x97);//(0x94);//(0x9B);
 
 }

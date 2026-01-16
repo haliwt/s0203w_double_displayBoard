@@ -136,7 +136,7 @@ void temperatureValue_compareHandler(void)
 
 	}
 
-	 
+	  __HAL_UART_CLEAR_OREFLAG(&huart1);//WT.EDIT 2026.01.16
 
     }
 }

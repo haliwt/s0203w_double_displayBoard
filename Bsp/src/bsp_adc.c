@@ -237,6 +237,7 @@ void detected_ptc_fan_error_handler(void)
     
        
       }
+	// __HAL_UART_CLEAR_OREFLAG(&huart1);
 }
 
 

@@ -64,9 +64,10 @@ static uint8_t  Delay(int32_t count)
 **************************************************************/
 void Breath_Led(void)
 {
-   
+  static uint8_t led_state ; 
+   #if 0
     static uint8_t breathing_time = 0;
-    static uint8_t led_state = 0;
+    
     
     breathing_time++;
     if(breathing_time >= 100)  // 呼吸周期1秒
@@ -83,6 +84,19 @@ void Breath_Led(void)
             LED_POWER_OFF();
         }
     }
+	#else 
+
+     if(glcd_t.gTimer_error_times > 11){
+	 	 glcd_t.gTimer_error_times =0;
+		 led_state = led_state ^ 0x01;
+	     if(led_state==1)LED_POWER_ON();
+		 else LED_POWER_OFF();
+     }
+	   
+
+
+
+	#endif 
 
 }
 	
