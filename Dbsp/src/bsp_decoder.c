@@ -107,7 +107,7 @@ void receive_data_fromm_display(uint8_t *pdata)
           
          if(gpro_t.tencent_link_success==1){
               MqttData_Publish_SetPtc(0x0);
-	  	      osDelay(50);//HAL_Delay(350);
+	  	      osDelay(200);//HAL_Delay(350);
           }
         }
      
@@ -120,23 +120,16 @@ void receive_data_fromm_display(uint8_t *pdata)
 
          
         if(gctl_t.interval_stop_run_flag  ==0 && gctl_t.manual_turn_off_ptc_flag ==0){
-		  	    gctl_t.ptc_flag = 1;
+		  	  gctl_t.ptc_flag = 1;
          
-                
-
-              
           }
-        
-          
        }
        else if(pdata[3] == 0x0){
 
        
             gctl_t.ptc_flag = 0;
          
-        
-
-       }
+      }
 
      break;
 
