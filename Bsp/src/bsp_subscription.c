@@ -661,7 +661,7 @@ void JsonParse_Tencent_Cmd_Handler(void)
 
             LCD_Disp_Timer_Timing_Init();
 
-           MqttData_Publish_SetState(2); //timer model  = 2, works model = 1
+           MqttData_Publish_AiState(2); //timer model  = 2, works model = 1
 			vTaskDelay(300);//HAL_Delay(200);
             //do someting disp timer timing value 
             SendData_Set_Command(0x27, 0x02); //AI turn off command
@@ -690,7 +690,7 @@ void JsonParse_Tencent_Cmd_Handler(void)
            
 
            
-            MqttData_Publish_SetState(1); //beijing timing = 1
+            MqttData_Publish_AiState(1); //beijing timing = 1
 			vTaskDelay(300);//HAL_Delay(200);
 
             SendData_Set_Command(0x27, 0x01); //AI turn on command

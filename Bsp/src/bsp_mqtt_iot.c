@@ -457,7 +457,7 @@ void MqttData_Publish_SetUltrasonic(uint8_t datsonic) //超声波
 
 }
 
-void MqttData_Publish_SetState(uint8_t sdat) //Ai model
+void MqttData_Publish_AiState(uint8_t sdat) //Ai model
 {
    property_topic_publish();
    property_report_SetState(sdat);

@@ -384,7 +384,7 @@ void  key_mode_be_pressed_send_data_wifi(void)
    
        
         if(gpro_t.tencent_link_success==1){
-            MqttData_Publish_SetState(1); //timer model  = 2, works model = 1
+            MqttData_Publish_AiState(1); //timer model  = 2, works model = 1
             osDelay(20);
 
         }
@@ -401,7 +401,7 @@ void  key_mode_be_pressed_send_data_wifi(void)
    
          if(gpro_t.tencent_link_success==1){
 
-           MqttData_Publish_SetState(2); //timer model  = 2, works model = 1
+           MqttData_Publish_AiState(2); //timer model  = 2, works model = 1
            osDelay(20);
           }
        }
@@ -815,7 +815,7 @@ void set_timer_value_handler(void)
                     osDelay(5);
 
 					if(gpro_t.tencent_link_success==1){
-                    MqttData_Publish_SetState(2); //timer model  = 2, works model = 1
+                    MqttData_Publish_AiState(2); //timer model  = 2, works model = 1
                     osDelay(50);//HAL_Delay(200);
                 }
                  

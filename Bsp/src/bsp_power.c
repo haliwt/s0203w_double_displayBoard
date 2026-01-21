@@ -217,7 +217,7 @@ void power_on_run_handler(void)
              second_disp_ai_time_fun();
 
          if(gpro_t.tencent_link_success==1 ){
-             MqttData_Publish_SetState(1);
+             MqttData_Publish_AiState(1);
 	         osDelay(300);//HAL_Delay(350);
            }
         }
@@ -231,7 +231,7 @@ void power_on_run_handler(void)
 
         if(gpro_t.tencent_link_success==1 &&  g_tDisp.ai_mode_flag ==3){
 			g_tDisp.ai_mode_flag++;
-         MqttData_Publish_SetState(2);
+         MqttData_Publish_AiState(2);
 	     osDelay(300);//HAL_Delay(350);
 
          }

@@ -100,9 +100,17 @@ void TransmitData(uint8_t *buf, uint8_t size)
 **/
 void SendWifiData_Answer_Cmd(uint8_t cmd, uint8_t cmdata) 
 {
-    uint8_t cmdData[1] = {cmdata};
-    FillFrame_Response(outputBuf, cmd,cmdData ,0);
-    TransmitData(outputBuf,7);
+        outputBuf[0]=0x5A; //mainboard head = 0x5A
+        outputBuf[1]=0x10; //display device Number:is 0x01
+        outputBuf[2]=0xFF; // answer or copy command
+        outputBuf[3]= cmd; // 0x0F : is data ,don't command order.
+        outputBuf[4]= cmdata; // don't data ,onlay is command order,recieve data is 1byte .
+       
+        outputBuf[5] = 0xFE; //frame is end of byte.
+        outputBuf[6] = bcc_check(outputBuf,6);
+        
+        transferSize=7;
+    	TransmitData(outputBuf,7);
 }
 
 

@@ -114,24 +114,7 @@ void receive_data_fromm_display(uint8_t *pdata)
       
      break;
 
-     case 0x22: //notification :ccompare set temp value ->PTC打开关闭指令,没有蜂鸣器声音�??
-   
-      if(pdata[3] == 0x01){
-
-         
-        if(gctl_t.interval_stop_run_flag  ==0 && gctl_t.manual_turn_off_ptc_flag ==0){
-		  	  gctl_t.ptc_flag = 1;
-         
-          }
-       }
-       else if(pdata[3] == 0x0){
-
-       
-            gctl_t.ptc_flag = 0;
-         
-      }
-
-     break;
+    
 
      case 0x03: //PLASMA 打开关闭指令
 
@@ -154,7 +137,7 @@ void receive_data_fromm_display(uint8_t *pdata)
 
           if(gpro_t.tencent_link_success==1){
               MqttData_Publish_SetPlasma(0x01);
-	  	      osDelay(50);//HAL_Delay(350);
+	  	      osDelay(200);//HAL_Delay(350);
           }
           
          
@@ -181,14 +164,9 @@ void receive_data_fromm_display(uint8_t *pdata)
 
       case 0x04: //ultrasonic  打开关闭指令
 
-         //buzzer_sound();
-
-        //wake_up_backlight_on();
-        //gpro_t.gTimer_shut_off_backlight =0;
-            
        if(pdata[3] == 0x01){  //open 
            Buzzer_KeySound();
-         //if(gctl_t.interval_stop_run_flag ==0){
+         if(gctl_t.interval_stop_run_flag ==0){
           
             gctl_t.ultrasonic_flag =1;
             
@@ -204,15 +182,11 @@ void receive_data_fromm_display(uint8_t *pdata)
 	  	      osDelay(200);//HAL_Delay(350);
              }
 
-
-
-        //}
-
         }
         else if(pdata[3] == 0x0){ //close 
 			 Buzzer_KeySound();
 
-             gctl_t.ultrasonic_flag =0;
+                gctl_t.ultrasonic_flag =0;
             	Ultrasonic_Pwm_Stop();
              	Disp_Ultrsonic_Icon();
 
@@ -234,7 +208,7 @@ void receive_data_fromm_display(uint8_t *pdata)
          gkey_t.wifi_led_fast_blink_flag=1;
          wifi_t.gTimer_linking_tencent_duration=0;
           SendWifiData_Answer_Cmd(0x05,0x01); //WT.EDIT 2025.01.07 
-		  vTaskDelay(10);
+		  vTaskDelay(100);
 
 
      break;
@@ -249,47 +223,31 @@ void receive_data_fromm_display(uint8_t *pdata)
 	 case 0x16:
 	     Buzzer_KeySound();
 		 SendWifiData_Answer_Cmd(0x16,0x01); //WT.EDIT 2025.01.07 
-		 vTaskDelay(10);
+		 vTaskDelay(100);
 
 	 break;
+	 
 
-	 case 0x07: //switch display by has been set up timer value or works timing value
+	 case 0x17: //switch display by has been set up timer value or works timing value
 
-	     //  Buzzer_KeySound();
-		   #if 0
-	        if(pdata[3] == 0x02 || pdata[3] ==0x01 || pdata[3] ==0x0){  //display AI =2,disp_timer_item.
-	           Buzzer_KeySound();
+           if(pdata[3]==0x01){
+	           if(gpro_t.tencent_link_success==1){
+			    MqttData_Publish_AiState(1);
+	            vTaskDelay(200);
+	           	}
+           	}
+		    else if(pdata[3]==0){
 
-			  if(gctl_t.ai_flag ==1){
-                  gpro_t.receive_disp_mode = disp_timer_timing;//gkey_t.key_mode=disp_timer_timing;
-				  gpro_t.gTimer_disp_short_time =0;
-			     // dispLCD_worksTime_fun();
-			     if(gkey_t.set_timer_timing_success ==1){
-                       dispLCD_timerTime_fun();
+			
+	           if(gpro_t.tencent_link_success==1){
+	              MqttData_Publish_AiState(2); //timer model  = 2, works model = 1
+	             vTaskDelay(200);
 
-				  }
-				  else{
-				     gctl_t.ai_flag = 0; // DISPLAY AI ICON
-					  donot_disp_ai_symbol();
-                      display_timer_times_handler(); 
-				  }
-				  gkey_t.key_mode = disp_timer_timing;
+	           }
 
-			  
-		      }
-	          else if(gctl_t.ai_flag==0){ //display don't AI MODE ,disp_works_item
-			  	 
-				  gpro_t.receive_disp_mode= disp_works_timing ;//gkey_t.key_mode=disp_works_timing;
-				  gpro_t.gTimer_disp_short_time =0;
-
-				   dispLCD_worksTime_fun();
-				  gkey_t.key_mode = disp_works_timing;
-				  }
-
-			  }
-           
-	      #endif 
-	  
+            }
+  
+	    
 
 	 break;
 
@@ -299,6 +257,8 @@ void receive_data_fromm_display(uint8_t *pdata)
          
       
       break;
+
+	  case 0x1B:
 
       case 0x2A:   //set up temperature value 按键设置的温度�??
 
@@ -337,7 +297,7 @@ void receive_data_fromm_display(uint8_t *pdata)
 
       case 0x1C: //表示时间：小时，分，�?
 
-        if(pdata[3] == 0x0F){ //数据
+        if(pdata[4] == 0x03){ //数据
 
           
 
@@ -383,6 +343,10 @@ void receive_data_fromm_display(uint8_t *pdata)
          }
 
      break;
+
+	 case 0xFF: //copy order or notice .
+
+	 break;
         
      
      }
