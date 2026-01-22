@@ -287,13 +287,7 @@ void receive_data_fromm_display(uint8_t *pdata)
 
       break;
 
-      case 0x1B: //湿度数据
-
-        if(pdata[3] == 0x0F){ //数据
-            
-
-        }
-      break;
+   
 
       case 0x1C: //表示时间：小时，分，�?
 
@@ -351,7 +345,7 @@ void receive_data_fromm_display(uint8_t *pdata)
      
      }
 
-   
+ }
 
 }
 
