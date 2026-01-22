@@ -133,9 +133,6 @@ static void vTaskUsartPro(void *pvParameters)//static void vTaskMsgPro(void *pvP
 
 		}
 
-   
-
-
 		}
 		
 	}
@@ -185,7 +182,7 @@ static void vTaskMsgPro(void *pvParameters)//static void vTaskStart(void *pvPara
           }
          
          
-           if(gkey_t.key_power==power_on){
+         if(gkey_t.key_power==power_on){
             
          
           power_on_run_handler();
@@ -208,11 +205,7 @@ static void vTaskMsgPro(void *pvParameters)//static void vTaskStart(void *pvPara
 		  
           Disip_Wifi_Icon_State();
 
-		 
-
-          
-         
-        }
+		}
         else{
             
           power_off_run_handler();

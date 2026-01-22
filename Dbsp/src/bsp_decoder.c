@@ -163,9 +163,10 @@ void receive_data_fromm_display(uint8_t *pdata)
 
 
       case 0x04: //ultrasonic  打开关闭指令
+	   Buzzer_KeySound();
 
        if(pdata[3] == 0x01){  //open 
-           Buzzer_KeySound();
+          
          if(gctl_t.interval_stop_run_flag ==0){
           
             gctl_t.ultrasonic_flag =1;
@@ -182,9 +183,10 @@ void receive_data_fromm_display(uint8_t *pdata)
 	  	      osDelay(200);//HAL_Delay(350);
              }
 
-        }
+          }
+       	}
         else if(pdata[3] == 0x0){ //close 
-			 Buzzer_KeySound();
+			
 
                 gctl_t.ultrasonic_flag =0;
             	Ultrasonic_Pwm_Stop();
@@ -347,7 +349,7 @@ void receive_data_fromm_display(uint8_t *pdata)
 
  }
 
-}
+
 
 /**********************************************************************
     *
