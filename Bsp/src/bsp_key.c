@@ -256,9 +256,7 @@ void key_mode_long_handler(void)
            gkey_t.gTimer_disp_set_timer = 0;       //counter exit timing this "mode_set_timer"
            
            Buzzer_KeySound();//buzzer_sound();
-           Set_Timer_Timing_Lcd_Blink();
-		   SendData_Set_Command(0x05,0x01);
-		   vTaskDelay(100);
+          
 		 
           }
 
@@ -305,9 +303,7 @@ void key_mode_short_handler(void)
 
 			  
                   Buzzer_KeySound();
-			    //SendData_Set_Command(0x07,0x02); //timer timing.
-                /// osDelay(5);//HAL_Delay(10);
-
+			   
 		#if 0
      
          if(gkey_t.key_mode  == disp_works_timing){
@@ -478,7 +474,7 @@ void Dec_Key_Fun(uint8_t cmd)
 			      glcd_t.number8_low = 0;
 			      glcd_t.number8_high =   0;
 			   
-              // LCD_Disp_Timer_Timing();
+               gkey_t.add_dec_key_be_pressed=1;
                 LCD_Number_FiveSix_Hours();
 
          break;
@@ -547,14 +543,14 @@ void Add_Key_Fun(uint8_t cmd)
 
 		   glcd_t.number6_low= gpro_t.set_timer_timing_hours %10;
 	
-       // Set_Timer_Timing_Lcd_Blink();
+   
 
-	     //dispaly minutes 
 	      glcd_t.number7_low =  0;
 	      glcd_t.number7_high =  0;
 
 	      glcd_t.number8_low = 0;
 	      glcd_t.number8_high =   0;
+		  gkey_t.add_dec_key_be_pressed=1;
 
        LCD_Disp_Timer_Timing();
         
@@ -775,53 +771,58 @@ void set_temp_value_compare_dht11_temp_value(void)
     }
 }
 
-
+uint8_t spot_flag;
 void set_timer_value_handler(void)
 {
 
- if(gkey_t.gTimer_disp_set_timer > 1 && gkey_t.key_add_dec_mode == mode_set_timer &&  gkey_t.key_mode_shot_flag ==0){
+	if(gkey_t.gTimer_disp_set_timer > 1 && gkey_t.key_add_dec_mode == mode_set_timer &&  gkey_t.key_mode_shot_flag ==0){
 
-            if(gpro_t.set_timer_timing_hours == 0 && gpro_t.set_timer_timing_minutes==0){
+		if(gpro_t.set_timer_timing_hours == 0 && gpro_t.set_timer_timing_minutes==0){
 
-                gkey_t.set_timer_timing_success = 0;
+		gkey_t.set_timer_timing_success = 0;
 
-                gctl_t.ai_flag = 1;
-                gkey_t.key_mode =disp_works_timing;
-            
-                gkey_t.key_add_dec_mode = set_temp_value_item;
-                LCD_Disp_Works_Timing_Init();
-                    
-                  //  SendData_Data(0x4C,0x0);
-				  //  osDelay(5);
+		gctl_t.ai_flag = 1;
+		gkey_t.key_mode =disp_works_timing;
 
-                 
-                 
-            
-            }
-            else{
-                gkey_t.set_timer_timing_success = 1;
-                gpro_t.gTimer_timer_Counter =0; //start recoder timer timing is "0",from "0" start
+		gkey_t.key_add_dec_mode = set_temp_value_item;
 
-                gctl_t.ai_flag = 0;
-              
-                gkey_t.key_mode = disp_timer_timing;
-                gkey_t.key_add_dec_mode = set_temp_value_item;
-                
-                LCD_Disp_Timer_Timing_Init();
+		spot_flag++;
+		if(gkey_t.set_timer_timing_success == 0 && gkey_t.add_dec_key_be_pressed == 1){
+				gkey_t.add_dec_key_be_pressed =0;
+				SendData_Data(0x2B, 0x0); //set up timer timing value .
+				osDelay(100);
+		}
+		LCD_Disp_Works_Timing_Init();
+    
+		
 
-              
-              
-                    SendData_Data(0x2B, gpro_t.set_timer_timing_hours); //set up timer timing value .
-                    osDelay(5);
 
-					if(gpro_t.tencent_link_success==1){
-                    MqttData_Publish_AiState(2); //timer model  = 2, works model = 1
-                    osDelay(50);//HAL_Delay(200);
-                }
-                 
-             
-            }
-        }
-   
+		}
+		else{
+			gkey_t.set_timer_timing_success = 1;
+			gpro_t.gTimer_timer_Counter =0; //start recoder timer timing is "0",from "0" start
+
+			gctl_t.ai_flag = 0;
+
+			gkey_t.key_mode = disp_timer_timing;
+			gkey_t.key_add_dec_mode = set_temp_value_item;
+
+			LCD_Disp_Timer_Timing_Init();
+
+			if(gkey_t.set_timer_timing_success == 1 && gkey_t.add_dec_key_be_pressed == 1){
+				gkey_t.add_dec_key_be_pressed =0;
+				SendData_Data(0x2B, gpro_t.set_timer_timing_hours); //set up timer timing value .
+				osDelay(100);
+			}
+
+			if(gpro_t.tencent_link_success==1){
+			MqttData_Publish_AiState(2); //timer model  = 2, works model = 1
+			osDelay(200);//HAL_Delay(200);
+			}
+
+
+		}
+	}
+
 }
 

@@ -73,6 +73,7 @@ typedef enum mode_key_t{
    uint8_t  key_mode_long_counter;
 
    uint8_t set_temp_value_be_pressed;
+   uint8_t add_dec_key_be_pressed;
 
   
    uint8_t  key_mode_shot_flag ;

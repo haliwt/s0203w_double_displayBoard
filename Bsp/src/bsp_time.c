@@ -363,22 +363,14 @@ void dispLCD_timerTime_fun(void)
 {
 	gctl_t.ai_flag = 0; // don't  DISPLAY AI ICON
 	donot_disp_ai_symbol();
-
-//	glcd_t.number5_low = gpro_t.set_timer_timing_hours / 10;
-//	glcd_t.number5_high = glcd_t.number5_low;
-
-
-//	glcd_t.number6_low = gpro_t.set_timer_timing_hours  % 10;
-//	glcd_t.number6_high =   glcd_t.number6_low;
-
-
-//	glcd_t.number7_low =    gpro_t.set_timer_timing_minutes / 10;
-//	glcd_t.number7_high = glcd_t.number7_low;
-
-
-//	glcd_t.number8_low = gpro_t.set_timer_timing_minutes % 10;
-//	glcd_t.number8_high = glcd_t.number8_low;
-	
-	display_works_times_four_numbers(gpro_t.set_timer_timing_hours ,gpro_t.set_timer_timing_minutes,0); //Display_Works_Timing();
+    display_works_times_four_numbers(gpro_t.set_timer_timing_hours ,gpro_t.set_timer_timing_minutes,0); //Display_Works_Timing();
 }
+
+void dispLCD_rx_worksTime_fun(void)
+{
+	gctl_t.ai_flag = 1; // don't  DISPLAY AI ICON
+	disp_ai_symbol();
+    display_works_times_four_numbers(gpro_t.set_timer_timing_hours ,gpro_t.set_timer_timing_minutes,0); //Display_Works_Timing();
+}
+
 

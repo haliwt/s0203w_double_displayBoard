@@ -325,6 +325,7 @@ void receive_data_fromm_display(uint8_t *pdata)
        
          if(pdata[3]==0x0F){
 	         if(pdata[4]==0x01){
+			 	if(pdata[5]>0){
                 gpro_t.set_timer_timing_hours = pdata[5];
 	            gkey_t.key_mode = disp_timer_timing;
 	           gpro_t.gTimer_timer_Counter=0;
@@ -334,11 +335,49 @@ void receive_data_fromm_display(uint8_t *pdata)
 	          
 	          
 				dispLCD_timerTime_fun();
+			 	}
+				else{
+				 gpro_t.set_timer_timing_hours=0;
+			     gkey_t.key_mode = disp_works_timing;
+			     gpro_t.gTimer_timer_Counter=0;
+			     gkey_t.set_timer_timing_success = 0;
+			     gkey_t.gTimer_disp_set_timer = 0; 
+			     gpro_t.set_timer_timing_minutes =0;
+				 dispLCD_rx_worksTime_fun();
+                
+}
+
+				}
 	            
 	         }
-         }
+         
 
      break;
+
+	 case 0x6C: //works timing 
+		  if(pdata[3]==0x0F){
+			if(pdata[4]==0x03){
+             gpro_t.disp_works_hours_value=pdata[5];
+    
+            gpro_t.disp_works_minutes_value = pdata[6];
+		    gpro_t.gTimer_works_counter_sencods = pdata[7];
+	 
+			}
+	      }
+	 break;
+
+	 case 0x6B://timer timing 
+	    if(pdata[3]==0x0F){
+	         if(pdata[4]==0x03){
+			 	
+                gpro_t.set_timer_timing_hours = pdata[5];
+	            gpro_t.set_timer_timing_minutes =pdata[6];
+	            gpro_t.gTimer_timer_Counter=pdata[7];
+	    
+	          }
+	    	}
+
+	 break; 
 
 	 case 0xFF: //copy order or notice .
 

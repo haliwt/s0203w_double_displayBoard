@@ -383,22 +383,7 @@ void Display_WorksTimingr_Handler(uint8_t sel_item)
             gctl_t.ai_flag =0;
         
             if(gpro_t.gTimer_disp_short_time < 19){
-//                glcd_t.number5_low = gpro_t.set_timer_timing_hours / 10;
-//                glcd_t.number5_high = glcd_t.number5_low; //gpro_t.set_timer_timing_hours / 10;
 
-
-//                glcd_t.number6_low = gpro_t.set_timer_timing_hours   % 10;
-//                glcd_t.number6_high =  glcd_t.number6_low;//gpro_t.set_timer_timing_hours % 10;
-
-//                //display minutes 
-//                glcd_t.number7_low = gpro_t.set_timer_timing_minutes / 10;
-//                glcd_t.number7_high = glcd_t.number7_low;//gpro_t.set_timer_timing_minutes / 10;
-
-                				
-//                glcd_t.number8_low = gpro_t.set_timer_timing_minutes   % 10;
-//                glcd_t.number8_high =  glcd_t.number8_low ;//gpro_t.set_timer_timing_minutes % 10;
-
-                //LCD_Disp_Timer_Timing();
                 display_works_times_four_numbers(gpro_t.set_timer_timing_hours,gpro_t.set_timer_timing_minutes,0);
             }
             else if(gpro_t.gTimer_disp_short_time > 19){
@@ -434,9 +419,7 @@ void Display_WorksTimingr_Handler(uint8_t sel_item)
 
           
                     
-                  SendData_Tx_Data(0x4C,0x0);
-				   osDelay(5);
-
+            
                  
                  
                  //display works times by smg numbers 5678 
@@ -458,8 +441,7 @@ void Display_WorksTimingr_Handler(uint8_t sel_item)
                 }
                
                     
-                    SendData_Tx_Data(0x4C, gpro_t.set_timer_timing_hours);
-					osDelay(20);
+                 
 
                  
                 //display works times by smg numbers 5678 

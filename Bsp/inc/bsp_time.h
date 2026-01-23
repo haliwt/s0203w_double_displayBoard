@@ -14,6 +14,7 @@ void dispLCD_worksTime_fun(void);
 
 void dispLCD_timerTime_fun(void);
 
+void dispLCD_rx_worksTime_fun(void);
 
 
 #endif 
