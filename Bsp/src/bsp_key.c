@@ -758,7 +758,7 @@ void set_temp_value_compare_dht11_temp_value(void)
     }
 }
 
-uint8_t spot_flag;
+
 void set_timer_value_handler(void)
 {
 
@@ -773,12 +773,15 @@ void set_timer_value_handler(void)
 
 		gkey_t.key_add_dec_mode = set_temp_value_item;
 
-		spot_flag++;
+		gkey_t.done_set_timer_flag = 2;
+
+	    #if 0
 		if(gkey_t.set_timer_timing_success == 0 && gkey_t.add_dec_key_be_pressed == 1){
 				gkey_t.add_dec_key_be_pressed =0;
 				SendData_Data(0x2B, 0x0); //set up timer timing value .
 				osDelay(100);
 		}
+		#endif 
 		LCD_Disp_Works_Timing_Init();
     
 		
@@ -794,13 +797,16 @@ void set_timer_value_handler(void)
 			gkey_t.key_mode = disp_timer_timing;
 			gkey_t.key_add_dec_mode = set_temp_value_item;
 
-			LCD_Disp_Timer_Timing_Init();
+			gkey_t.done_set_timer_flag = 1;
 
+			LCD_Disp_Timer_Timing_Init();
+           #if 0
 			if(gkey_t.set_timer_timing_success == 1 && gkey_t.add_dec_key_be_pressed == 1){
 				gkey_t.add_dec_key_be_pressed =0;
 				SendData_Data(0x2B, gpro_t.set_timer_timing_hours); //set up timer timing value .
 				osDelay(100);
 			}
+			#endif 
 
 			if(gpro_t.tencent_link_success==1){
 			MqttData_Publish_AiState(2); //timer model  = 2, works model = 1

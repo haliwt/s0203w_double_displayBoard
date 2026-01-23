@@ -321,8 +321,36 @@ void power_on_run_handler(void)
 
 	case 8:
          set_timer_value_handler();
+		 
+		 if(gkey_t.done_set_timer_flag == 2){
+		    gkey_t.done_set_timer_flag=0;
+
+	    
+			if(gkey_t.set_timer_timing_success == 0 && gkey_t.add_dec_key_be_pressed == 1){
+					gkey_t.add_dec_key_be_pressed =0;
+					SendData_Data(0x2B, 0x0); //set up timer timing value .
+					osDelay(100);
+			}
+		
+		 }
+		 else if(gkey_t.done_set_timer_flag == 1){
+		   gkey_t.done_set_timer_flag=0;
+
+           if(gkey_t.set_timer_timing_success == 1 && gkey_t.add_dec_key_be_pressed == 1){
+				gkey_t.add_dec_key_be_pressed =0;
+				SendData_Data(0x2B, gpro_t.set_timer_timing_hours); //set up timer timing value .
+				osDelay(100);
+			}
+
+		 }
+		
+		  gctl_t.step_process=9;
+	break;
+
+	case 9:
 		 record_time_or_timer_handler();
-		  gctl_t.step_process=1;
+	    gctl_t.step_process=1;
+
 	break;
 
 	default:

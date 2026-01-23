@@ -66,6 +66,8 @@ typedef enum mode_key_t{
    uint8_t  key_add_flag;
    uint8_t  key_dec_flag;
 
+   uint8_t  done_set_timer_flag;
+
  
    uint8_t  key_add_dec_mode;
    uint8_t  set_timer_timing_success;
