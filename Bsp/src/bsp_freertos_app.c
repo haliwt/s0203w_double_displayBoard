@@ -197,7 +197,7 @@ static void vTaskMsgPro(void *pvParameters)//static void vTaskStart(void *pvPara
 
 		  dispLCD_timeColon_handler();
 
-		  
+		  display_ai_icon();
          
           LCD_Fan_Run_Icon(wifi_t.set_wind_speed_value);
 		  

@@ -205,6 +205,7 @@ void  record_time_or_timer_handler(void);
 
 void power_off_init_function(void);
 
+void display_ai_icon(void);
 
 
 #endif 

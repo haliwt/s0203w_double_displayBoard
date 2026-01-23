@@ -430,3 +430,16 @@ void record_time_or_timer_handler(void)
 }
 
 
+void display_ai_icon(void)
+{
+if(gctl_t.ai_flag == 1){
+
+		disp_ai_symbol();
+
+ }
+ else{
+   donot_disp_ai_symbol();
+
+ }
+}
+
