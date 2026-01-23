@@ -184,7 +184,7 @@ void power_on_run_handler(void)
 
              power_off_flag=0;
              fan_run_one_flag=1;
-
+             gctl_t.interval_stop_run_flag= 0;
             gctl_t.step_process = 1;
 
      

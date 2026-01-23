@@ -207,7 +207,7 @@ static void vTaskMsgPro(void *pvParameters)//static void vTaskStart(void *pvPara
 
 		}
         else{
-            
+          gctl_t.interval_stop_run_flag= 0;   
           power_off_run_handler();
 
        }

@@ -354,7 +354,7 @@ void read_senson_dht11_data(void)
 
         }
         sendData_Real_TimeHum(gctl_t.dht11_humidity_value,gctl_t.dht11_temp_value);
-        osDelay(10);
+        osDelay(100);
 
   }
 
