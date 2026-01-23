@@ -138,23 +138,8 @@ void Display_Works_Timing(void)
          if(minutes_change_flag != gpro_t.disp_works_minutes_value)minutes_change_flag = gpro_t.disp_works_minutes_value;
 
          if(gpro_t.disp_timer_switch_time_flag >0) gpro_t.disp_timer_switch_time_flag=0;
-         
-//        glcd_t.number5_low = gpro_t.disp_works_hours_value / 10;
-//		glcd_t.number5_high = gpro_t.disp_works_hours_value / 10;
-
-
-//		glcd_t.number6_low = gpro_t.disp_works_hours_value  % 10;
-//		glcd_t.number6_high = gpro_t.disp_works_hours_value % 10;
-
-
-//        glcd_t.number7_low = gpro_t.disp_works_minutes_value / 10;
-//		glcd_t.number7_high = gpro_t.disp_works_minutes_value / 10;
-
-
-//		glcd_t.number8_low = gpro_t.disp_works_minutes_value  % 10;
-//		glcd_t.number8_high = gpro_t.disp_works_minutes_value % 10;
        
-         display_works_times_four_numbers(gpro_t.disp_works_hours_value,gpro_t.disp_works_minutes_value,0);
+         display_works_times_four_numbers(gpro_t.disp_works_hours_value,gpro_t.disp_works_minutes_value);
 
 
 
@@ -186,7 +171,7 @@ static void disp_speical_works_timing_value(void)
 //   glcd_t.number8_high = glcd_t.number8_low ;//gpro_t.disp_works_minutes_value % 10;
    //Display_LCD_Works_Timing();
 
-   display_works_times_four_numbers(gpro_t.disp_works_hours_value,gpro_t.disp_works_minutes_value,0);
+   display_works_times_four_numbers(gpro_t.disp_works_hours_value,gpro_t.disp_works_minutes_value);
 
 
 
@@ -230,7 +215,7 @@ void LCD_Disp_Works_Timing_Init(void)
 //		  glcd_t.number8_high = gpro_t.disp_works_minutes_value % 10;
 
 	    
-           display_works_times_four_numbers(gpro_t.disp_works_hours_value,gpro_t.disp_works_minutes_value,0);
+           display_works_times_four_numbers(gpro_t.disp_works_hours_value,gpro_t.disp_works_minutes_value);
 
 	 
     //Display_LCD_Works_Timing();
@@ -297,7 +282,7 @@ void Display_Timer_Timing(void)
 //		 glcd_t.number8_high = gpro_t.set_timer_timing_minutes % 10;
 
         // LCD_Disp_Timer_Timing();
-         display_works_times_four_numbers(gpro_t.set_timer_timing_hours,gpro_t.set_timer_timing_minutes,0);
+         display_works_times_four_numbers(gpro_t.set_timer_timing_hours,gpro_t.set_timer_timing_minutes);
          send_timer_times_flag= 1;
 		    
      }
@@ -346,7 +331,7 @@ void LCD_Disp_Timer_Timing_Init(void)
 //    glcd_t.number8_high =  glcd_t.number8_low ;//gpro_t.set_timer_timing_minutes % 10;
 
     //LCD_Disp_Timer_Timing();
-    display_works_times_four_numbers(gpro_t.set_timer_timing_hours,gpro_t.set_timer_timing_minutes,0);
+    display_works_times_four_numbers(gpro_t.set_timer_timing_hours,gpro_t.set_timer_timing_minutes);
 
 }
 /*********************************************************************************
@@ -384,7 +369,7 @@ void Display_WorksTimingr_Handler(uint8_t sel_item)
         
             if(gpro_t.gTimer_disp_short_time < 19){
 
-                display_works_times_four_numbers(gpro_t.set_timer_timing_hours,gpro_t.set_timer_timing_minutes,0);
+                display_works_times_four_numbers(gpro_t.set_timer_timing_hours,gpro_t.set_timer_timing_minutes);
             }
             else if(gpro_t.gTimer_disp_short_time > 19){
                 gpro_t.gTimer_disp_short_time=0;
@@ -403,7 +388,7 @@ void Display_WorksTimingr_Handler(uint8_t sel_item)
 
     case mode_set_timer:
     
-        Set_Timer_Timing_Lcd_Blink();//(gpro_t.set_timer_timing_hours,gpro_t.set_timer_timing_minutes);
+      //  Set_Timer_Timing_Lcd_Blink();//(gpro_t.set_timer_timing_hours,gpro_t.set_timer_timing_minutes);
        
         if(gkey_t.gTimer_disp_set_timer > 1){
 
@@ -484,49 +469,50 @@ void Display_WorksTimingr_Handler(uint8_t sel_item)
 *
 *********************************************************************************************************
 */
-void Set_Timer_Timing_Lcd_Blink(void)
-{
+//void Set_Timer_Timing_Lcd_Blink(void)
+//{
 
-   // static uint8_t switch_timer_flag;
-   //  if(gpro_t.gTimer_set_timer_value > 9){ //90x10ms= 90ms
-	//   gpro_t.gTimer_set_timer_value=0;
+//   // static uint8_t switch_timer_flag;
+//   //  if(gpro_t.gTimer_set_timer_value > 9){ //90x10ms= 90ms
+//	//   gpro_t.gTimer_set_timer_value=0;
 
-	// switch_timer_flag = switch_timer_flag ^ 0x01;
+//	// switch_timer_flag = switch_timer_flag ^ 0x01;
 
-	// if(switch_timer_flag ==1){
-//      glcd_t.number5_low =  0x0A ;
-//      glcd_t.number5_high =  0x0A ;
+//	// if(switch_timer_flag ==1){
+////      glcd_t.number5_low =  0x0A ;
+////      glcd_t.number5_high =  0x0A ;
 
-//      glcd_t.number6_low  =  0x0A; //
-//      glcd_t.number6_high =  0x0A; //
+////      glcd_t.number6_low  =  0x0A; //
+////      glcd_t.number6_high =  0x0A; //
       
-//       //dispaly minutes 
-//      glcd_t.number7_low =   0x0A;
-//      glcd_t.number7_high =   0x0A;
+////       //dispaly minutes 
+////      glcd_t.number7_low =   0x0A;
+////      glcd_t.number7_high =   0x0A;
 
-//      glcd_t.number8_low =   0x0A;
-//      glcd_t.number8_high =   0x0A;
-      //LCD_Disp_Timer_Timing();
-      display_works_times_four_numbers(0x0A,0x0A,1);
-      osDelay(100);//HAL_Delay(100);
+////      glcd_t.number8_low =   0x0A;
+////      glcd_t.number8_high =   0x0A;
+//      //LCD_Disp_Timer_Timing();
+//     // display_works_times_four_numbers(0x0A,0x0A,1);
+//      //osDelay(100);//HAL_Delay(100);
 
 	
-      glcd_t.number5_low =  gpro_t.set_timer_timing_hours  / 10 ;
-      glcd_t.number5_high =  gpro_t.set_timer_timing_hours  / 10 ;
+//      glcd_t.number5_low =  gpro_t.set_timer_timing_hours  / 10 ;
+//      glcd_t.number5_high =  gpro_t.set_timer_timing_hours  / 10 ;
 
-      glcd_t.number6_low  = gpro_t.set_timer_timing_hours% 10; //
-      glcd_t.number6_high = gpro_t.set_timer_timing_hours % 10; //
+//      glcd_t.number6_low  = gpro_t.set_timer_timing_hours% 10; //
+//      glcd_t.number6_high = gpro_t.set_timer_timing_hours % 10; //
       
-       //dispaly minutes 
-      glcd_t.number7_low =  0;
-      glcd_t.number7_high =  0;
+//       //dispaly minutes 
+//      glcd_t.number7_low =  0;
+//      glcd_t.number7_high =  0;
 
-      glcd_t.number8_low = 0;
-      glcd_t.number8_high =   0;
-      LCD_Disp_Timer_Timing();
-      osDelay(100);//HAL_Delay(100);
+//      glcd_t.number8_low = 0;
+//      glcd_t.number8_high =   0;
+//      //LCD_Disp_Timer_Timing();
+//      display_works_times_four_numbers(0x0A,0x0A,1);
+    
 
- }
+// }
     
 
 

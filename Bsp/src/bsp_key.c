@@ -459,23 +459,24 @@ void Dec_Key_Fun(uint8_t cmd)
     			 gpro_t.set_timer_timing_hours =24;//run_t.dispTime_hours --;
     				
     		  }
-             //Set_Timer_Timing_Lcd_Blink();
+            
 
-			   glcd_t.number5_high = gpro_t.set_timer_timing_hours /10;
-			   glcd_t.number5_low =  gpro_t.set_timer_timing_hours /10;
+//			   glcd_t.number5_high = gpro_t.set_timer_timing_hours /10;
+//			   glcd_t.number5_low =  gpro_t.set_timer_timing_hours /10;
 
-			   glcd_t.number6_high= gpro_t.set_timer_timing_hours %10;
-                glcd_t.number6_low= gpro_t.set_timer_timing_hours %10;
+//			   glcd_t.number6_high= gpro_t.set_timer_timing_hours %10;
+//                glcd_t.number6_low= gpro_t.set_timer_timing_hours %10;
 
-                   //dispaly minutes 
-			      glcd_t.number7_low =  0;
-			      glcd_t.number7_high =  0;
+//                   //dispaly minutes 
+//			      glcd_t.number7_low =  0;
+//			      glcd_t.number7_high =  0;
 
-			      glcd_t.number8_low = 0;
-			      glcd_t.number8_high =   0;
+//			      glcd_t.number8_low = 0;
+//			      glcd_t.number8_high =   0;
 			   
                gkey_t.add_dec_key_be_pressed=1;
-                LCD_Number_FiveSix_Hours();
+                //LCD_Number_FiveSix_Hours();
+               display_works_times_four_numbers(gpro_t.set_timer_timing_hours,0);
 
          break;
  
@@ -536,23 +537,9 @@ void Add_Key_Fun(uint8_t cmd)
 		                
              }
 
-		   glcd_t.number5_high = gpro_t.set_timer_timing_hours /10;
-		   glcd_t.number5_low =  gpro_t.set_timer_timing_hours /10;
-
-		   glcd_t.number6_high= gpro_t.set_timer_timing_hours %10;
-
-		   glcd_t.number6_low= gpro_t.set_timer_timing_hours %10;
-	
-   
-
-	      glcd_t.number7_low =  0;
-	      glcd_t.number7_high =  0;
-
-	      glcd_t.number8_low = 0;
-	      glcd_t.number8_high =   0;
 		  gkey_t.add_dec_key_be_pressed=1;
-
-       LCD_Disp_Timer_Timing();
+          display_works_times_four_numbers(gpro_t.set_timer_timing_hours, 0);
+      // LCD_Disp_Timer_Timing();
         
      break;
         

@@ -501,15 +501,15 @@ void LCD_Number_SevenEight_Minutes(void)
 }
 /*****************************************************************************
  * 
- * Function Name: void display_works_times_four_numbers(uint8_t hours , uint8_t minutes,uint8_t sel)
+ * Function Name: void display_works_times_four_numbers(uint8_t hours , uint8_t minutes)
  * Function:
  * Input Ref:
  * Return Ref:
  * 
 *****************************************************************************/
-void display_works_times_four_numbers(uint8_t hours , uint8_t minutes,uint8_t sel)
+void display_works_times_four_numbers(uint8_t hours , uint8_t minutes)
 {
-
+   static uint8_t sel =0;
    if(sel ==0){
         glcd_t.number5_low = hours / 10;
 		glcd_t.number5_high = hours / 10;
@@ -1087,7 +1087,7 @@ void dispLCD_timeColon_handler(void)
          
          case disp_works_timing :
 
-	        display_works_times_four_numbers(gpro_t.disp_works_hours_value, gpro_t.disp_works_minutes_value, 0);
+	        display_works_times_four_numbers(gpro_t.disp_works_hours_value, gpro_t.disp_works_minutes_value);
 		 
 		  if(glcd_t.gtime_colon_symbol_flag ==0)
              TM1723_Write_Display_Data(0xCB,(COLON_SYMBOL + lcdNumber7_High[glcd_t.number7_high] + lcdNumber7_Low[glcd_t.number7_low] ) & 0xffff);
@@ -1104,7 +1104,7 @@ void dispLCD_timeColon_handler(void)
              if(gkey_t.set_timer_timing_success ==1){
              
                   
-			        display_works_times_four_numbers(gpro_t.set_timer_timing_hours, gpro_t.set_timer_timing_minutes, 0);
+			        display_works_times_four_numbers(gpro_t.set_timer_timing_hours, gpro_t.set_timer_timing_minutes);
 			        if(glcd_t.gtime_colon_symbol_flag ==0)
                     	TM1723_Write_Display_Data(0xCB,(COLON_SYMBOL + lcdNumber7_High[glcd_t.number7_high] + lcdNumber7_Low[glcd_t.number7_low] ) & 0xffff);
                     else
@@ -1116,7 +1116,7 @@ void dispLCD_timeColon_handler(void)
                      glcd_t.number7_low=0;
 				     glcd_t.number7_high=0;
 
-				display_works_times_four_numbers(gpro_t.set_timer_timing_hours, gpro_t.set_timer_timing_minutes, 0);
+				display_works_times_four_numbers(gpro_t.set_timer_timing_hours, gpro_t.set_timer_timing_minutes);
 				
 				if(glcd_t.gtime_colon_symbol_flag ==0)
 				TM1723_Write_Display_Data(0xCB,(COLON_SYMBOL + lcdNumber7_High[glcd_t.number7_high] + lcdNumber7_Low[glcd_t.number7_low] ) & 0xffff);

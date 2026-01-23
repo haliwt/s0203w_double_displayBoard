@@ -2,7 +2,7 @@
 #define __BSP_LCD_APP_H
 #include "main.h"
 
-void Set_Timer_Timing_Lcd_Blink(void );
+//void Set_Timer_Timing_Lcd_Blink(void );
 
 void PowerOn_Init(void);
 
@@ -34,7 +34,7 @@ void LCD_Disp_Timer_Timing(void);
 void Display_WorksTimingr_Handler(uint8_t sel_item);
 
 
-void Set_Timer_Timing_Lcd_Blink(void );
+//void Set_Timer_Timing_Lcd_Blink(void );
 
 
 //void Record_WorksTime_DonotDisp_Handler(void);
