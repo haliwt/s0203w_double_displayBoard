@@ -79,7 +79,7 @@ void second_disp_ai_time_fun(void)
      
     gkey_t.key_mode_switch_flag = 1;
     gkey_t.key_mode  = disp_works_timing;
-    gkey_t.key_add_dec_mode = set_temp_value_item;
+
     gctl_t.ai_flag = 1; // AI DISPLAY AI ICON
 
    
@@ -103,7 +103,7 @@ void second_disp_not_ai_timer_fun(void)
     gctl_t.ai_flag = 0; // DON'T DISP AI ICON
     //counter exit timing this "mode_set_timer"
     gkey_t.key_mode_switch_flag = 1;
-    gkey_t.key_add_dec_mode = set_temp_value_item;
+
 
     LCD_Disp_Timer_Timing_Init();
     disp_ai_iocn();

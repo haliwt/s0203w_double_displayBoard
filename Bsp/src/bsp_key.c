@@ -45,24 +45,49 @@ void key_handler(void)
        key_power_long_handler();
 
 	}	
-	if(KEY_MODE_VALUE() == KEY_DOWN && gkey_t.key_power==power_on){
+	if(KEY_MODE_VALUE() == KEY_DOWN && gkey_t.key_power==power_on && gkey_t.key_mode_long_counter < 100 ){
 
-       key_mode_long_handler();
+       //key_mode_long_handler();
+         gkey_t.key_mode_long_counter++;
+		if(gkey_t.key_mode_long_counter < 100  &&  gctl_t.fan_warning==0 &&  gctl_t.ptc_warning==0){
+
+
+	      
+	        if(gkey_t.key_mode_long_counter >  60 ){
+	            gkey_t.key_mode_long_counter = 150;
+	           
+	            gkey_t.key_mode_shot_flag = 0;
+	            gkey_t.key_mode = mode_set_timer;//0x03
+	            gkey_t.key_add_dec_mode=0;
+	           gctl_t.ai_flag = 0; //timer tiiming model
+	           gkey_t.gTimer_disp_set_timer = 0;       //counter exit timing this "mode_set_timer"
+	           
+	           Buzzer_KeySound();//buzzer_sound();
+	          
+			 
+	          }
+
+	    }
+		
+		if(gkey_t.key_mode_long_counter == 150)gkey_t.key_mode_flag=0;
+		else
+		   gkey_t.key_mode_flag=1;
 	}
 	else if(KEY_DEC_VALUE()==KEY_DOWN && gkey_t.key_power==power_on){
 
           gkey_t.key_dec_flag =1;
+	      gkey_t.key_mode_long_counter=0;
 
 
     }
 	else if(KEY_ADD_VALUE()==KEY_DOWN && gkey_t.key_power==power_on ){
-		
+		    gkey_t.key_mode_long_counter=0;
            gkey_t.key_add_flag =1;
 
 
 
 	}
-
+   //READ KEY VALUE 
 	if(gkey_t.key_mode_flag== 1 && KEY_MODE_VALUE() == KEY_UP){
 
 		key_mode_short_handler();
@@ -71,15 +96,27 @@ void key_handler(void)
 		gkey_t.key_add_flag++;
 		Buzzer_KeySound();
 
-		Add_Key_Fun(gkey_t.key_add_dec_mode);
+		if(gkey_t.key_add_dec_mode==2){
+		   Add_Key_Fun(gkey_t.key_add_dec_mode);
+
+		}
+		else{
+		  Add_Key_Fun(gkey_t.key_mode);
+
+		}
 
 	}
 	else if(gkey_t.key_dec_flag == 1 && KEY_DEC_VALUE()== KEY_UP){
 			gkey_t.key_dec_flag++;
 			Buzzer_KeySound();
 					  
-
-			Dec_Key_Fun(gkey_t.key_add_dec_mode);
+		if(gkey_t.key_add_dec_mode==2){
+		    Dec_Key_Fun(gkey_t.key_add_dec_mode);
+			
+		}
+        else{
+			Dec_Key_Fun(gkey_t.key_mode);
+        }
 
 	}
 	
@@ -251,7 +288,7 @@ void key_mode_long_handler(void)
            
             gkey_t.key_mode_shot_flag = 0;
             gkey_t.key_mode = mode_set_timer;
-           gkey_t.key_add_dec_mode = mode_set_timer;
+          // gkey_t.key_add_dec_mode = mode_set_timer;
            gctl_t.ai_flag = 0; //timer tiiming model
            gkey_t.gTimer_disp_set_timer = 0;       //counter exit timing this "mode_set_timer"
            
@@ -272,95 +309,52 @@ void key_mode_long_handler(void)
 ************************************************************************************/
 void key_mode_short_handler(void)
 {
-    
 
-   if(KEY_MODE_VALUE() == KEY_UP && gkey_t.key_mode_flag==1 && gctl_t.fan_warning==0 &&  gctl_t.ptc_warning==0\
-   	  && gkey_t.key_mode_long_counter != 150){ //short key of function
 
-        gkey_t.key_mode_long_counter=0;
-        gkey_t.key_mode_flag++;
-
-		 if(gctl_t.ai_flag ==1){
-                  gpro_t.receive_disp_mode = disp_timer_timing;//gkey_t.key_mode=disp_timer_timing;
-				  gpro_t.gTimer_disp_short_time =0;
-		         gctl_t.ai_flag = 0;
-				 donot_disp_ai_symbol();
-
-				 dispLCD_timerTime_fun();
-
-				  gkey_t.key_mode = disp_timer_timing;
-
-			  
-		      }
-			  else if(gctl_t.ai_flag==0){ //display don't AI MODE ,disp_works_item
-			  	 
-				  gpro_t.receive_disp_mode= disp_works_timing ;//gkey_t.key_mode=disp_works_timing;
-				  gpro_t.gTimer_disp_short_time =0;
-
-				   dispLCD_worksTime_fun();
-				   gkey_t.key_mode = disp_works_timing;
-				  }
-
-			  
-                  Buzzer_KeySound();
-			   
-		#if 0
-     
-         if(gkey_t.key_mode  == disp_works_timing){
-             gkey_t.key_mode  = disp_timer_timing;
-
-		     gkey_t.key_mode_shot_flag = 1;
-           
-               gctl_t.ai_flag = 0; // DON'T DISP AI ICON
-               
-
-			// g_tDisp.ai_mode_flag =2; //WT.EDIT 2025.06.07
-          
-            gkey_t.key_mode_switch_flag = 1;
-            gkey_t.key_add_dec_mode = set_temp_value_item;
-            
-       
-             
-            gkey_t.key_mode_be_pressed = 2;
-            gpro_t.gTimer_disp_short_time=0;
-			LCD_Disp_Timer_Timing_Init();
-            disp_ai_iocn();
-            Buzzer_KeySound();
-			SendData_Set_Command(0x07,0x02); //timer timing.
-            osDelay(5);//HAL_Delay(10);
-
-        }
-        else{
-			 gkey_t.key_mode_shot_flag = 1;
-			 gctl_t.ai_flag = 1;
-            gkey_t.key_mode_switch_flag = 1;
-            gkey_t.key_mode  = disp_works_timing;
-            gkey_t.key_add_dec_mode = disp_works_timing;
-
-            //gkey_t.key_mode_be_pressed = 1;
-			//g_tDisp.ai_mode_flag =1; //WT.EDIT 2025.06.07
-            gpro_t.gTimer_disp_short_time=0;
-
-			LCD_Disp_Works_Timing_Init();
-            disp_ai_iocn();
-            Buzzer_KeySound();
-			SendData_Set_Command(0x07,0x01); 
-            osDelay(5);//HAL_Delay(10);
-         }
-
-         #endif 
-     }
-     if(KEY_MODE_VALUE() == KEY_UP && gkey_t.key_mode_flag==1 && gctl_t.fan_warning==0 &&  gctl_t.ptc_warning==0\
-	 	&& gkey_t.key_mode_long_counter == 150){
+   if(KEY_MODE_VALUE() == KEY_UP && gkey_t.key_mode_flag==1 && gkey_t.key_mode_long_counter == 150){
 
 	     gkey_t.key_mode_long_counter=0;
 		 gkey_t.key_mode_flag++;
 
+  }
+  else if(KEY_MODE_VALUE() == KEY_UP && gkey_t.key_mode_flag==1 && gctl_t.fan_warning==0 &&  gctl_t.ptc_warning==0){ //short key of function
 
+        gkey_t.key_mode_long_counter=0;
+        gkey_t.key_mode_flag++;
+
+		 Buzzer_KeySound();
+
+		 if(gctl_t.ai_flag ==1){
+                  //gpro_t.receive_disp_mode = disp_timer_timing;//gkey_t.key_mode=disp_timer_timing;
+				  gpro_t.gTimer_disp_short_time =0;
+		         gctl_t.ai_flag = 0;
+		         gkey_t.key_mode = disp_timer_timing;
+				 gkey_t.key_add_dec_mode=2;
+				 donot_disp_ai_symbol();
+                
+				 dispLCD_timerTime_fun();
+
+				
+
+			  
+		 }
+		 else { //display don't AI MODE ,disp_works_item
+		         gctl_t.ai_flag =1;
+			  	 gkey_t.key_mode = disp_works_timing;
+		          gkey_t.key_add_dec_mode=0;
+				 // gpro_t.receive_disp_mode= disp_works_timing ;//gkey_t.key_mode=disp_works_timing;
+				  gpro_t.gTimer_disp_short_time =0;
+				// disp_ai_symbol();
+				 dispLCD_worksTime_fun();
+				  
+		}
+
+			  
+                
+			   
      }
-
-
- }
+    
+}
 
 void  key_mode_be_pressed_send_data_wifi(void)
 {
@@ -758,7 +752,7 @@ void set_temp_value_compare_dht11_temp_value(void)
     }
 }
 
-
+#if 0
 void set_timer_value_handler(void)
 {
 
@@ -818,4 +812,4 @@ void set_timer_value_handler(void)
 	}
 
 }
-
+#endif 

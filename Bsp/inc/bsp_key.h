@@ -36,12 +36,12 @@ typedef enum{
 
 typedef enum mode_key_t{
     
-   disp_works_timing,
-   disp_timer_timing,
+   disp_works_timing=0,
+   disp_timer_timing=1,
 
-   set_temp_value_item,
+   set_temp_value_item=2,
    
-   mode_set_timer,
+   mode_set_timer=3,
    mode_confirm,
    mode_set_temp,
    set_timer_confirm,
@@ -67,9 +67,10 @@ typedef enum mode_key_t{
    uint8_t  key_dec_flag;
 
    uint8_t  done_set_timer_flag;
+   uint8_t  key_add_dec_mode;
 
  
-   uint8_t  key_add_dec_mode;
+ 
    uint8_t  set_timer_timing_success;
    uint8_t  power_key_long_counter;
    uint8_t  key_mode_long_counter;

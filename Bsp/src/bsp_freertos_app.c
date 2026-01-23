@@ -195,6 +195,8 @@ static void vTaskMsgPro(void *pvParameters)//static void vTaskStart(void *pvPara
 
 		//  set_timer_value_handler();
 
+		   Display_WorksTimingr_Handler(gkey_t.key_mode); //WT.EDIT 2026.01.23
+
 		  dispLCD_timeColon_handler();
 
 		  display_ai_icon();

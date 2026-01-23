@@ -46,7 +46,7 @@ void bsp_ctl_init(void)
    gctl_t.plasma_flag =1;
    gctl_t.ultrasonic_flag =1;
    gctl_t.ai_flag = 1;  //default is "1" AI MODE
-   gkey_t.key_add_dec_mode = set_temp_value_item;
+   //gkey_t.key_add_dec_mode = set_temp_value_item;
    wifi_t.set_wind_speed_value=0;
 
    Buzzer_Sound_Init();
@@ -76,7 +76,7 @@ void main_fun_init(void)
    gctl_t.plasma_flag =1;
    gctl_t.ultrasonic_flag =1;
    gctl_t.ai_flag = 1;
-   gkey_t.key_add_dec_mode = set_temp_value_item;
+   //gkey_t.key_add_dec_mode = set_temp_value_item;
    wifi_t.set_wind_speed_value=0;
 
    

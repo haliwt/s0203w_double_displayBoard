@@ -248,7 +248,7 @@ static void interval_continuce_works_fun(void)
 
 }
 
-
+#if 0
 void Display_modeKey_switchTime_Handler(void)
 {
 
@@ -331,30 +331,13 @@ void Display_modeKey_switchTime_Handler(void)
 
 }
 
-
+#endif 
 
 void dispLCD_worksTime_fun(void)
 {
        gctl_t.ai_flag = 1; //  DISPLAY AI ICON
 	   disp_ai_symbol();
-
-	  
-//	    glcd_t.number5_low = gpro_t.disp_works_hours_value / 10;
-//		glcd_t.number5_high = glcd_t.number5_low;
-
-
-//		glcd_t.number6_low = gpro_t.disp_works_hours_value  % 10;
-//		glcd_t.number6_high = glcd_t.number6_low;
-
-
-//        glcd_t.number7_low = gpro_t.disp_works_minutes_value / 10;
-//		glcd_t.number7_high = glcd_t.number7_low;
-
-
-//		glcd_t.number8_low = gpro_t.disp_works_minutes_value  % 10;
-//		glcd_t.number8_high = glcd_t.number8_low;
-		
-	 	display_works_times_four_numbers(gpro_t.disp_works_hours_value,gpro_t.disp_works_minutes_value); //Display_Works_Timing();
+       display_works_times_four_numbers(gpro_t.disp_works_hours_value,gpro_t.disp_works_minutes_value); //Display_Works_Timing();
 
 
 }

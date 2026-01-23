@@ -51,7 +51,7 @@ void power_off_init_function(void)
             gpro_t.gTimer_run_dht11=20;
             gpro_t.set_temperature_value_success=0;
 
-              gkey_t.key_add_dec_mode = disp_works_timing;
+     
 			
 	          gpro_t.set_timer_timing_hours =0 ;
 	          gpro_t.set_timer_timing_minutes =0;
@@ -296,15 +296,14 @@ void power_on_run_handler(void)
        break;
 
       case 6:
+	  	 #if 0
 		   if(gpro_t.receive_disp_mode == disp_timer_timing || gpro_t.receive_disp_mode == disp_works_timing){
 	        Display_modeKey_switchTime_Handler();
 		   }
-	  	   else if(gpro_t.receive_disp_mode != disp_timer_timing && gpro_t.receive_disp_mode != disp_works_timing){	
-              if(gpro_t.gTimer_disp_smg_4bit > 2){
-			  	gpro_t.gTimer_disp_smg_4bit =0;
-			  Display_WorksTimingr_Handler(gkey_t.key_mode);
-              }
-	  	   }
+	  	   else 
+          #endif 
+
+		
 	  	  
     	  gctl_t.step_process=7;
       break;
@@ -314,13 +313,13 @@ void power_on_run_handler(void)
 	case 7: //check works times
 
 	       works_two_hours_handler();
-		  // LCD_Fan_Run_Icon(wifi_t.set_wind_speed_value);
+		
 		   
 		   gctl_t.step_process=8;
     break;
 
 	case 8:
-         set_timer_value_handler();
+        // set_timer_value_handler();
 		 
 		 if(gkey_t.done_set_timer_flag == 2){
 		    gkey_t.done_set_timer_flag=0;
@@ -447,7 +446,7 @@ void power_on_init_function(void)
 	wifi_t.link_net_tencent_data_flag=1;
 
 
-	gkey_t.key_add_dec_mode = disp_works_timing;
+
 	gctl_t.ai_flag = 1; // AI DISPLAY AI ICON
 	gkey_t.key_mode = disp_works_timing;
 	gctl_t.gSet_temperature_value =40;

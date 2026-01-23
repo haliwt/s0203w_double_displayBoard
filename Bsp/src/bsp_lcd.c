@@ -512,19 +512,19 @@ void display_works_times_four_numbers(uint8_t hours , uint8_t minutes)
    static uint8_t sel =0;
    if(sel ==0){
         glcd_t.number5_low = hours / 10;
-		glcd_t.number5_high = hours / 10;
+		glcd_t.number5_high = glcd_t.number5_low;
 
 
 		glcd_t.number6_low = hours  % 10;
-		glcd_t.number6_high = hours % 10;
+		glcd_t.number6_high = glcd_t.number6_low;
 
 
         glcd_t.number7_low = minutes / 10;
-		glcd_t.number7_high = minutes / 10;
+		glcd_t.number7_high = glcd_t.number7_low;
 
 
 		glcd_t.number8_low = minutes  % 10;
-		glcd_t.number8_high = minutes % 10;
+		glcd_t.number8_high = glcd_t.number8_low ;
    	}
     else{
 	  glcd_t.number5_low =  0x0A ;
