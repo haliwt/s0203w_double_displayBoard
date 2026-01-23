@@ -315,9 +315,15 @@ void power_on_run_handler(void)
 
 	       works_two_hours_handler();
 		  // LCD_Fan_Run_Icon(wifi_t.set_wind_speed_value);
-		 
-		   gctl_t.step_process=1;
+		   
+		   gctl_t.step_process=8;
     break;
+
+	case 8:
+         set_timer_value_handler();
+		 record_time_or_timer_handler();
+		  gctl_t.step_process=1;
+	break;
 
 	default:
 

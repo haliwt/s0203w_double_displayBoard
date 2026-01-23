@@ -762,9 +762,9 @@ uint8_t spot_flag;
 void set_timer_value_handler(void)
 {
 
-	if(gkey_t.gTimer_disp_set_timer > 1 && gkey_t.key_add_dec_mode == mode_set_timer &&  gkey_t.key_mode_shot_flag ==0){
+	if(gkey_t.gTimer_disp_set_timer > 1 && gkey_t.key_add_dec_mode == 0x02 &&  gkey_t.key_mode_shot_flag ==0){
 
-		if(gpro_t.set_timer_timing_hours == 0 && gpro_t.set_timer_timing_minutes==0){
+		if(gpro_t.set_timer_timing_hours == 0){
 
 		gkey_t.set_timer_timing_success = 0;
 

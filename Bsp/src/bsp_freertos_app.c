@@ -189,11 +189,11 @@ static void vTaskMsgPro(void *pvParameters)//static void vTaskStart(void *pvPara
 
 		  
 	   
-          record_time_or_timer_handler();
+        //  record_time_or_timer_handler();
 		  
           key_add_dec_set_temp_value_fun();
 
-		  set_timer_value_handler();
+		//  set_timer_value_handler();
 
 		  dispLCD_timeColon_handler();
 
