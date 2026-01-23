@@ -187,7 +187,7 @@ void power_on_run_handler(void)
 
             gctl_t.step_process = 1;
 
-
+     
 		  break;
 
 
@@ -196,7 +196,7 @@ void power_on_run_handler(void)
 
             read_senson_dht11_data();
 			//LCD_Fan_Run_Icon(wifi_t.set_wind_speed_value);
-
+        
           gctl_t.step_process=2;
 		  
           break;
@@ -315,6 +315,7 @@ void power_on_run_handler(void)
 
 	       works_two_hours_handler();
 		  // LCD_Fan_Run_Icon(wifi_t.set_wind_speed_value);
+		 
 		   gctl_t.step_process=1;
     break;
 
@@ -418,7 +419,10 @@ void power_on_init_function(void)
 	gctl_t.gSet_temperature_value =40;
     gpro_t.receive_disp_mode = 0xff;
 	
-	
+	 if(gpro_t.tencent_link_success==1){//receive from tencent command state .
+             SendWifiData_To_Data(0x1F,0x01);
+             osDelay(100);
+	 }
 
 	if(gpro_t.tencent_link_success==1){
 

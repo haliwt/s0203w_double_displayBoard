@@ -85,7 +85,7 @@ void  wifi_get_beijing_time_handler(void)
              }
              gpro_t.linking_tencent_cloud_doing  =0; //receive from tencent command state .
              SendWifiData_To_Data(0x1F,0x01);
-             osDelay(5);
+             osDelay(100);
 
          }
          else if(gpro_t.get_beijing_time_success ==1){
