@@ -51,6 +51,16 @@ void PowerOff_Off_Led(void)
 
 }
 
+void power_off_led_exception_power_led(void)
+{
+
+	    LED_Mode_Off();
+		Ptc_Off();
+		Ultrasonic_Pwm_Stop();
+		Plasma_Off();
+
+}
+
 
 
 /*

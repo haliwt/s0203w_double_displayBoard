@@ -52,6 +52,7 @@ void LCD_Fan_Run_Icon(uint8_t wind_speed);
 
 void LCD_fanRun_switchTimer_handle(void);
 
+void power_off_led_exception_power_led(void);
 
 #endif
 

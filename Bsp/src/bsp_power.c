@@ -141,6 +141,7 @@ void power_off_run_handler(void)
 	Fan_Stop();
 	Backlight_Off();
 	Lcd_Display_Off();
+	PowerOff_Off_Led();
 
 
 	}
@@ -148,6 +149,7 @@ void power_off_run_handler(void)
    }
 		
    Breath_Led();
+   power_off_led_exception_power_led();
    if(gpro_t.tencent_link_success ==1 && send_data_to_cloud > 200){
 		send_data_to_cloud=0;
 		
