@@ -97,6 +97,7 @@ typedef enum mode_key_t{
 
    uint8_t gTimer_power_key_counter;
    uint8_t gTimer_power_off_run_times;
+   uint8_t gTimer_mode_long_key_counter;
 	
 
 }key_fun_t;
@@ -108,7 +109,7 @@ typedef enum mode_key_t{
 
 void key_power_long_handler(void);
 
-void key_mode_long_handler(void);
+//void key_mode_long_handler(void);
 
 void key_mode_short_handler(void);
 

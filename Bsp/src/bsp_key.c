@@ -44,16 +44,14 @@ void key_handler(void)
 	if(KEY_POWER_VALUE() == KEY_DOWN ){
        key_power_long_handler();
 
-	}	
-	if(KEY_MODE_VALUE() == KEY_DOWN && gkey_t.key_power==power_on && gkey_t.key_mode_long_counter < 100 ){
+	}
+	else if(KEY_MODE_VALUE() == KEY_DOWN && gkey_t.key_power==power_on){
 
        //key_mode_long_handler();
-         gkey_t.key_mode_long_counter++;
-		if(gkey_t.key_mode_long_counter < 100  &&  gctl_t.fan_warning==0 &&  gctl_t.ptc_warning==0){
-
-
-	      
-	        if(gkey_t.key_mode_long_counter >  60 ){
+        if(gkey_t.key_mode_long_counter < 100 &&  gctl_t.fan_warning==0 &&  gctl_t.ptc_warning==0 ){
+            gkey_t.key_mode_long_counter++;
+		
+            if(gkey_t.key_mode_long_counter >  80 ){
 	            gkey_t.key_mode_long_counter = 150;
 	           
 	            gkey_t.key_mode_shot_flag = 0;
@@ -61,14 +59,14 @@ void key_handler(void)
 	            gkey_t.key_add_dec_mode=0;
 	           gctl_t.ai_flag = 0; //timer tiiming model
 	           gkey_t.gTimer_disp_set_timer = 0;       //counter exit timing this "mode_set_timer"
-	           
+	           gkey_t.gTimer_mode_long_key_counter=0;
 	           Buzzer_KeySound();//buzzer_sound();
 	          
 			 
 	          }
 
 	    }
-		
+        
 		if(gkey_t.key_mode_long_counter == 150)gkey_t.key_mode_flag=0;
 		else
 		   gkey_t.key_mode_flag=1;
@@ -87,9 +85,11 @@ void key_handler(void)
 
 
 	}
+	
    //READ KEY VALUE 
-	if(gkey_t.key_mode_flag== 1 && KEY_MODE_VALUE() == KEY_UP){
-
+   if(gkey_t.key_mode_flag== 1 && KEY_MODE_VALUE() == KEY_UP ){
+       gkey_t.key_mode_flag++;
+	   gkey_t.key_mode_long_counter=0;
 		key_mode_short_handler();
 	}
 	else if(gkey_t.key_add_flag == 1 && KEY_ADD_VALUE()== KEY_UP){
@@ -119,6 +119,11 @@ void key_handler(void)
         }
 
 	}
+
+	if(gkey_t.key_mode_long_counter == 150 && gkey_t.gTimer_mode_long_key_counter > 1){
+           gkey_t.key_mode_long_counter = 0;
+
+      }
 	
 
 
@@ -275,30 +280,30 @@ void smartphone_power_on_handler(void)
 *	è¿? å›? å€?: æ—?
 *   
 *********************************************************************************/
-void key_mode_long_handler(void)
-{
+//void key_mode_long_handler(void)
+//{
 
-      gkey_t.key_mode_flag=1;
-	if(KEY_MODE_VALUE() == KEY_DOWN && gkey_t.key_mode_long_counter < 100  &&  gctl_t.fan_warning==0 &&  gctl_t.ptc_warning==0){
+//      gkey_t.key_mode_flag=1;
+//	if(KEY_MODE_VALUE() == KEY_DOWN && gkey_t.key_mode_long_counter < 100  &&  gctl_t.fan_warning==0 &&  gctl_t.ptc_warning==0){
 
 
-        gkey_t.key_mode_long_counter++;
-        if(gkey_t.key_mode_long_counter >  50 ){
-            gkey_t.key_mode_long_counter = 150;
+//        gkey_t.key_mode_long_counter++;
+//        if(gkey_t.key_mode_long_counter >  50 ){
+//            gkey_t.key_mode_long_counter = 150;
            
-            gkey_t.key_mode_shot_flag = 0;
-            gkey_t.key_mode = mode_set_timer;
-          // gkey_t.key_add_dec_mode = mode_set_timer;
-           gctl_t.ai_flag = 0; //timer tiiming model
-           gkey_t.gTimer_disp_set_timer = 0;       //counter exit timing this "mode_set_timer"
+//            gkey_t.key_mode_shot_flag = 0;
+//            gkey_t.key_mode = mode_set_timer;
+//          // gkey_t.key_add_dec_mode = mode_set_timer;
+//           gctl_t.ai_flag = 0; //timer tiiming model
+//           gkey_t.gTimer_disp_set_timer = 0;       //counter exit timing this "mode_set_timer"
            
-           Buzzer_KeySound();//buzzer_sound();
+//           Buzzer_KeySound();//buzzer_sound();
           
 		 
-          }
+//          }
 
-    }
-}
+//    }
+//}
 /************************************************************************************
 	*
 	*Funtion Name:void key_power_shot_handler(void)
@@ -311,16 +316,8 @@ void key_mode_short_handler(void)
 {
 
 
-   if(KEY_MODE_VALUE() == KEY_UP && gkey_t.key_mode_flag==1 && gkey_t.key_mode_long_counter == 150){
-
-	     gkey_t.key_mode_long_counter=0;
-		 gkey_t.key_mode_flag++;
-
-  }
-  else if(KEY_MODE_VALUE() == KEY_UP && gkey_t.key_mode_flag==1 && gctl_t.fan_warning==0 &&  gctl_t.ptc_warning==0){ //short key of function
-
-        gkey_t.key_mode_long_counter=0;
-        gkey_t.key_mode_flag++;
+    
+      
 
 		 Buzzer_KeySound();
 
@@ -350,11 +347,9 @@ void key_mode_short_handler(void)
 		}
 
 			  
-                
-			   
-     }
+ }
     
-}
+
 
 void  key_mode_be_pressed_send_data_wifi(void)
 {
